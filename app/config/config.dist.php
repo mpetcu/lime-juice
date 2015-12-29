@@ -1,6 +1,6 @@
 <?php
 /**
- * Please rename this file to "config.dist.php" after your setup is ready
+ * Please rename this file to "config.php" after your setup is ready
  */
 return new \Phalcon\Config([
     'mongo'  => [
