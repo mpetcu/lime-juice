@@ -9,6 +9,7 @@ A small user account management is provided. There are 2 account types:
 - **master** - access everything.  
 - **operator**  - can see and run queries.
 
+
 ##Install & configure##
 **Requirements:**
   - *PHP >= 5.3 - http://php.net/downloads.php*;
