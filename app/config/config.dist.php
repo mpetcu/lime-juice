@@ -22,9 +22,9 @@ return new \Phalcon\Config([
         'host'         => '', //hostname required
         'user'         => '',
         'pass'         => '',
-        'security'     => 'ssl',
-        'port'         => 465,
-        'email'        => ''//email of sender
+        'security'     => 'ssl', //(ssl, tls)
+        'port'         => 465, //(465, 578, ...)
+        'email'        => '' //email of sender
     ],
     'devEnv' => false, //run as development enviroment (bool)
     'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757' //should change it with your hash
