@@ -59,8 +59,9 @@ return new \Phalcon\Config([
 
 **Step 4**: In order to work properly, you should add the following job to your **crontab** *(5 min. granulation)*: 
 ```
-*/5 * * * * php /path/to/reporter-manager/app/cron.php
+*/5 * * * * php /path/to/your/reporter-manager/app/cron.php
 ```
+**And ... Ready to run :)**
 
    
 
