@@ -18,7 +18,7 @@ A small user account management is provided. There are 2 account types:
 
 **How to:**
 
-Find file **app/config/config.dist.php** and change it with your own setup:
+**Step 1**: Find **app/config/config.dist.php** *(Report manager root directory)* and change it with your own setup:
 ```
 <?php
 /**
@@ -44,11 +44,23 @@ return new \Phalcon\Config([
         'host'         => '', //hostname required
         'user'         => '',
         'pass'         => '',
-        'security'     => 'ssl',
-        'port'         => 465,
-        'email'        => ''//email of sender
+        'security'     => 'ssl', //(ssl, tls)
+        'port'         => 465, //(465, 578, ...)
+        'email'        => '' //email of sender
     ],
     'devEnv' => false, //run as development enviroment (bool)
     'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757' //should change it with your hash
 ]);
 ```
+
+**Step 2**: Set **recursively read & write** permissions to **public/reports/** directory.
+
+**Step 3**: Access your **Report manager** base path *(defined in app/config/config.php as baseUri)* and follow instructions. 
+
+**Step 4**: In order to work properly, you should add the following job to your **crontab** *(5 min. granulation)*: 
+```
+*/5 * * * * php /path/to/reporter-manager/app/cron.php
+```
+
+   
+
