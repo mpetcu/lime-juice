@@ -63,5 +63,8 @@ return new \Phalcon\Config([
 ```
 **And ... Ready to run :)**
 
+##Special thanks to##
+- *PHP Cron Expression Parser* - https://github.com/mtdowling/cron-expression;
+- *PHPMailer* - https://github.com/PHPMailer/PHPMailer;
    
 
