@@ -197,8 +197,14 @@ class Report extends \Phalcon\Mvc\Collection
     private function setCSV(){
         try {
             $data = (array)$this->run()->fetchAll();
-            $absPath = __DIR__.'/../../public/';
-            $fileLocation = 'reports/'. md5(microtime()) . '.csv';
+            $absPath = $this->getDI()->get('config')->application->publicDir;
+            $reportsPath = $this->getDI()->get('config')->reportsPath;
+            $hash = md5(microtime());
+            $hashDir =  $reportsPath.substr($hash, 0, 2). '/' . substr($hash, 2, 2);
+            $hashFile = substr($hash, 4);
+            if(!is_dir($absPath.$hashDir))
+                mkdir($absPath.$hashDir, 0755, true);
+            $fileLocation =  $hashDir . '/' . $hashFile . '.csv';
             $fp = fopen($absPath.$fileLocation, 'w');
             $i=0;
             foreach ($data as $f) {

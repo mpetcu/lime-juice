@@ -16,6 +16,7 @@ return new \Phalcon\Config([
         'viewsDir'       => __DIR__ . '/../../app/views/',
         'libraryDir'     => __DIR__ . '/../../app/library/',
         'cacheDir'       => __DIR__ . '/../../app/cache/',
+        'publicDir'      => __DIR__ . '/../../public/',
         'baseUri'        => '', //full app path. (http://mydomain.com/reporter)
     ],
     'mail' => [
@@ -27,5 +28,6 @@ return new \Phalcon\Config([
         'email'        => '' //email of sender
     ],
     'devEnv' => false, //run as development enviroment (bool)
-    'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757' //should change it with your hash
+    'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757', //should change it with your hash
+    'reportsPath' => 'reports/' //name of directory where reports will be saved
 ]);

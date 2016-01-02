@@ -1,5 +1,5 @@
 <?php
-DEFINE('VERSION', 'v0.2 beta');
+DEFINE('VERSION', 'v0.3 beta');
 try {
 
     //Read the configuration
