@@ -117,16 +117,18 @@ abstract class ControllerBase extends Controller
      * @return bool
      */
     protected function allowRoles($roles = ['master']){
-        if(in_array($this->getUserRole(), $roles)){
-            return true;
+        if($this->isUserAuthenticated()){
+            if(in_array($this->getUserRole(), $roles)){
+                return true;
+            }
+            $this->dispatcher->forward(
+                array(
+                    "controller" => "index",
+                    "action"     => "error404"
+                )
+            );
+            return false;
         }
-        $this->dispatcher->forward(
-            array(
-                "controller" => "index",
-                "action"     => "error404"
-            )
-        );
-        return false;
     }
 
 
