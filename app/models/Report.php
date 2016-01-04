@@ -212,7 +212,7 @@ class Report extends \Phalcon\Mvc\Collection
                 // if($i==0){
                 //     fputcsv($fp, $)
                 // }
-                fputcsv($fp, $row); $i++;
+                fputcsv($fp, $row, ',', '"'); $i++;
             }
             fclose($fp);
         }catch (Exception $e){
