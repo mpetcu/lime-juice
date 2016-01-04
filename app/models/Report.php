@@ -196,9 +196,6 @@ class Report extends \Phalcon\Mvc\Collection
      */
     private function setCSV(){
         try {
-            $result = $this->run();
-            $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
-            $data = (array) $result->fetchAll();
             $absPath = $this->getDI()->get('config')->application->publicDir;
             $reportsPath = $this->getDI()->get('config')->reportsPath;
             $hash = md5(microtime());
@@ -209,8 +206,13 @@ class Report extends \Phalcon\Mvc\Collection
             $fileLocation =  $hashDir . '/' . $hashFile . '.csv';
             $fp = fopen($absPath.$fileLocation, 'w');
             $i=0;
-            foreach ($data as $f) {
-                fputcsv($fp, $f); $i++;
+            $result = $this->run();
+            $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
+            while ($row = $result->fetch()){
+                // if($i==0){
+                //     fputcsv($fp, $)
+                // }
+                fputcsv($fp, $row); $i++;
             }
             fclose($fp);
         }catch (Exception $e){
