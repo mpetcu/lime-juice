@@ -121,10 +121,14 @@ $di->set('mail', function () use ($config) {
         $mail->CharSet      = 'UTF-8';
         $mail->Host         = $config->mail->host;
         $mail->SMTPAuth     = true;
-        $mail->Username     = $config->mail->user;
-        $mail->Password     = $config->mail->pass;
-        $mail->SMTPSecure   = $config->mail->security;
-        $mail->Port         = $config->mail->port;
+        if($config->mail->user)
+            $mail->Username     = $config->mail->user;
+        if($config->mail->pass)    
+            $mail->Password     = $config->mail->pass;
+        if($config->mail->security)
+            $mail->SMTPSecure   = $config->mail->security;
+        if($config->mail->port)
+            $mail->Port         = $config->mail->port;
         $mail->SMTPKeepAlive = true;
         $mail->setFrom($config->mail->email);
 
