@@ -57,9 +57,9 @@
                 if($.trim($('#master_pass').val()) != $.trim($('#master_pass2').val()))
                     errors.push('Pass & pass check are not identical!');
             if($('.mongo.glyphicon-remove').parent().html())
-                errors.push('Your <b>Mongo database connection</b> is not correctly setup in <b>[YourProjectRoot]/app/config/config.dist.php</b>');
+                errors.push('Your <b>Mongo database connection</b> is not correctly setup in <b>[YourProjectRoot]/app/config/config.php</b>');
             if($('.mail.glyphicon-remove').parent().html())
-                errors.push('Your <b>mail server configuration</b> is not correctly setup in <b>[YourProjectRoot]/app/config/config.dist.php</b>');
+                errors.push('Your <b>mail server configuration</b> is not correctly setup in <b>[YourProjectRoot]/app/config/config.php</b>');
             if($('.permission.glyphicon-remove').parent().html())
                 errors.push('You can\'t install without permission to read, write and execute for directory: <b>[YourProjectRoot]/public/reports</b>');
 
