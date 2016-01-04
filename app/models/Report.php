@@ -194,7 +194,7 @@ class Report extends \Phalcon\Mvc\Collection
      * Create a CSV file from array provided by run()->fetchAll()
      * @return array
      */
-    private function setCSV(){
+    private function setCSV($type = null){
         try {
             $absPath = $this->getDI()->get('config')->application->publicDir;
             $reportsPath = $this->getDI()->get('config')->reportsPath;
@@ -209,9 +209,9 @@ class Report extends \Phalcon\Mvc\Collection
             $result = $this->run();
             $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
             while ($row = $result->fetch()){
-                // if($i==0){
-                //     fputcsv($fp, $)
-                // }
+                if($i==0){
+                     fputcsv($fp, array_keys($row), ';');
+                }
                 fputcsv($fp, $row, ';'); $i++;
             }
             fclose($fp);
