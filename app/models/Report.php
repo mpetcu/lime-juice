@@ -196,7 +196,8 @@ class Report extends \Phalcon\Mvc\Collection
      */
     private function setCSV(){
         try {
-            $result = $this->run()->setFetchMode(Phalcon\Db::FETCH_ASSOC)
+            $result = $this->run();
+            $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
             $data = (array) $result->fetchAll();
             $absPath = $this->getDI()->get('config')->application->publicDir;
             $reportsPath = $this->getDI()->get('config')->reportsPath;
