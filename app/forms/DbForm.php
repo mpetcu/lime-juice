@@ -31,7 +31,7 @@ class DbForm extends Form
             "adapter",
             [
                 'Mysql' => 'MySQL',
-                'Postgresql' => 'PostgreSQL'
+//                'Postgresql' => 'PostgreSQL'
             ]
         );
         $adapter->setLabel('DB type');

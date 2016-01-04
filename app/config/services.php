@@ -120,7 +120,7 @@ $di->set('mail', function () use ($config) {
         $mail->isHTML(true);
         $mail->CharSet      = 'UTF-8';
         $mail->Host         = $config->mail->host;
-        $mail->SMTPAuth     = true;
+        $mail->SMTPAuth     = $config->mail->SMTPAuth;
         if($config->mail->user)
             $mail->Username     = $config->mail->user;
         if($config->mail->pass)    

@@ -3,7 +3,7 @@
     <div class="bitm">
         <a href="{{ url("db/show", ["id" : itm.getId()]) }}" class="cnt small">
             <h2><span class="glyphicon glyphicon-tag"></span> {{ itm.name }}</h2>
-            <p>{{ itm.countReports() }} reports</p>
+            <p><b class="orange">{{ itm.getAdapter()|upper }}</b> | {{ itm.countReports() }} reports</p>
         </a>
         <div>
             <a href="{{ url('db/delete', ['id': itm.getId()]) }}" title="Delete" class="btn pull-right btn-danger btn-mrg-left runModal"><span class="glyphicon glyphicon-trash"></span></a>

@@ -27,7 +27,7 @@ class Report extends \Phalcon\Mvc\Collection
     }
 
     public function beforeUpdate(){
-        $this->setLogCount((int) count(Log::find(['condition' => ['rid' => $this->rid]])));
+        $this->setLogCount((int) count(Log::find(['conditions' => ['rid' => $this->getId()]])));
     }
 
     public function setLogCount($logCount){
@@ -209,9 +209,8 @@ class Report extends \Phalcon\Mvc\Collection
             $result = $this->run();
             $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
             while ($row = $result->fetch()){
-                if($i==0){
-                     fputcsv($fp, array_keys($row), ';');
-                }
+                if($i==0)
+                    fputcsv($fp, array_keys($row), ';');
                 fputcsv($fp, $row, ';'); $i++;
             }
             fclose($fp);

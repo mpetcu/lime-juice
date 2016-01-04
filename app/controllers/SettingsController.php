@@ -36,7 +36,7 @@ class SettingsController extends ControllerBase
             $user->setPass($passString);
 
             if($this->processForm($user, 'UserRequestForm')) {
-                $this->mail->addAddress($user->email);
+                $this->mail->addAddress($this->request->get('email'));
                 $this->mail->Subject = 'New account [Report manager]';
                 $this->mail->Body = 'A new user on Report manager was created with your email address!<br><br/>' .
                     '<i>Username</i>: <b>' . $user->email . '</b><br/>' .
@@ -89,6 +89,7 @@ class SettingsController extends ControllerBase
         if($this->request->isPost()){
             $post = $this->request->getPost();
             if($this->utility->isEmailValid($post['conf']['master_user']) && $post['conf']['master_pass'] == $post['conf']['master_pass2']){
+
                 //save user;
                 $user = new User();
                 $user->email = $post['conf']['master_user'];

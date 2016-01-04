@@ -9,13 +9,13 @@
         {% if dbm.getUsername() %}User:<b>{{ dbm.getUsername() }}</b> | {% endif %}
         {% if dbm.getDbname() %}Database:<b>{{ dbm.getDbname() }}</b> {% endif %}
     </p>
-        <h2 class="subhead">Reports {% if dbm.getReports()|length > 1 %}({{ dbm.getReports()|length }}){% endif %}
+        <h2 class="subhead">Reports
             <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-warning pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> Create report</a>
         </h2>
         <ul class="reports">
             {% for itm in dbm.getReports() %}
                 <li {% if itm.logs is defined %}class="{% if itm.getLatestLog().errors %}red{%else%}green{%endif%}"{% endif %}>
-                    <a href="{{ url("report/edit", ["id" : itm.getId()]) }}" title="Edit" class="title">{{ itm.name }}</a>
+                    <a href="{{ url("report/edit", ["id" : itm.getId()]) }}" title="Edit" class="title">{{ itm.name }} <i class="gray">({{ itm.getLogCount() }} logs)</i></a>
                     <a href="{{ url('report/delete', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-danger pull-right runModal"><span class="glyphicon glyphicon-trash"></span></a>
                     <a href="{{ url('report/edit', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a href="{{ url('report/jobModal', ['id': itm.getId()]) }}" title="Cron job" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-time"></span></a>

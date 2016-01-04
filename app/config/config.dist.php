@@ -4,7 +4,7 @@
  */
 return new \Phalcon\Config([
     'mongo'  => [
-        'host'     => '', //mongo hostname required
+        'host'     => '', //mongo hostname required (default port :27017)
         'user' => '', //mongo username optional
         'pass' => '', //mongo password optional
         'dbname'   => '', //mongo database required
@@ -21,11 +21,12 @@ return new \Phalcon\Config([
     ],
     'mail' => [
         'host'         => '', //hostname required
+        'port'         => '', //(465, 578, ...)
+        'security'     => '', //(ssl, tls ...)
+        'SMTPAuth'     => false, //(SMTP Authentication true or false)
         'user'         => '',
         'pass'         => '',
-        'security'     => 'ssl', //(ssl, tls)
-        'port'         => 465, //(465, 578, ...)
-        'email'        => '' //email of sender
+        'email'        => '' //sender email address
     ],
     'devEnv' => false, //run as development enviroment (bool)
     'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757', //should change it with your hash

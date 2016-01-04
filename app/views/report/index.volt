@@ -26,7 +26,7 @@
                                 <tr>
                                     <td colspan="5" class="gray">
                                         <a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>
-                                        <a href="" class="btn btn-default btn-xs runModal"><span class="glyphicon glyphicon-eye-open"></span> Show all</a>
+                                        <!--<a href="" class="btn btn-default btn-xs runModal"><span class="glyphicon glyphicon-eye-open"></span> Show all</a>-->
                                         &nbsp; <span class="glyphicon glyphicon-time"></span> <i>Next run: <strong>{{utility.formatDate(itm2.getJob().getNextRun())}}</strong></i>
                                     </td>
                                 </tr>
