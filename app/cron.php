@@ -24,8 +24,8 @@ $loader->registerDirs(
 $loader->register();
 
 // Load the conf
-if (is_readable(APP_PATH . '/config/config.dist.php')) {
-    $config = include APP_PATH . '/config/config.dist.php';
+if (is_readable(APP_PATH . '/config/config.php')) {
+    $config = include APP_PATH . '/config/config.php';
     $di->set('config', $config);
 }
 // Mongo connection
