@@ -26,7 +26,7 @@ A small user account management is provided. There are 2 account types:
  */
 return new \Phalcon\Config([
     'mongo'  => [
-        'host'     => '', //mongo hostname required
+        'host'     => '', //mongo hostname required (default port :27017)
         'user' => '', //mongo username optional
         'pass' => '', //mongo password optional
         'dbname'   => '', //mongo database required
@@ -38,22 +38,26 @@ return new \Phalcon\Config([
         'viewsDir'       => __DIR__ . '/../../app/views/',
         'libraryDir'     => __DIR__ . '/../../app/library/',
         'cacheDir'       => __DIR__ . '/../../app/cache/',
+        'publicDir'      => __DIR__ . '/../../public/',
         'baseUri'        => '', //full app path. (http://mydomain.com/reporter/)
     ],
     'mail' => [
         'host'         => '', //hostname required
+        'port'         => '', //(465, 578, ...)
+        'security'     => '', //(ssl, tls ...)
+        'SMTPAuth'     => false, //(SMTP Authentication true or false)
         'user'         => '',
         'pass'         => '',
-        'security'     => 'ssl', //(ssl, tls)
-        'port'         => 465, //(465, 578, ...)
-        'email'        => '' //email of sender
+        'email'        => '' //sender email address
     ],
     'devEnv' => false, //run as development enviroment (bool)
-    'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757' //should change it with your hash
+    'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757', //should change it with your hash
+    'reportsPath' => 'reports/' //name of directory where reports will be saved
 ]);
+
 ```
 
-**Step 2**: Set **recursively read & write** permissions to **public/reports/** directory.
+**Step 2**: Set **recursively read & write** permissions to **public/reports/** directory and **read, write & execute** to **app/cache/**.
 
 **Step 3**: Access your **Report manager** base path *(defined in app/config/config.php as baseUri)* and follow instructions. 
 
