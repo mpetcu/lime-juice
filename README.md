@@ -38,7 +38,7 @@ return new \Phalcon\Config([
         'viewsDir'       => __DIR__ . '/../../app/views/',
         'libraryDir'     => __DIR__ . '/../../app/library/',
         'cacheDir'       => __DIR__ . '/../../app/cache/',
-        'baseUri'        => '', //full app path. (http://mydomain.com/reporter)
+        'baseUri'        => '', //full app path. (http://mydomain.com/reporter/)
     ],
     'mail' => [
         'host'         => '', //hostname required
