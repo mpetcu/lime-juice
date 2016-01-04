@@ -14,7 +14,7 @@ A small user account management is provided. There are 2 account types:
 **Requirements:**
   - *PHP >= 5.3 - http://php.net/downloads.php*;
   - *Phalcon Framework >= 2.0 - https://phalconphp.com/en/download*; 
-  - *MongoDB - https://www.mongodb.org/downloads*;
+  - *MongoDB(service & PHP extension) - https://www.mongodb.org/downloads*;
 
 **How to:**
 
