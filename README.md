@@ -54,7 +54,6 @@ return new \Phalcon\Config([
     'hash' => '233bc15198fad59d9ec2fa192e4b058c74ea7757', //should change it with your hash
     'reportsPath' => 'reports/' //name of directory where reports will be saved
 ]);
-
 ```
 
 **Step 2**: Set **recursively read & write** permissions to **public/reports/** directory and **read, write & execute** to **app/cache/**.
