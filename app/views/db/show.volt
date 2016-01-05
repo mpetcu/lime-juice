@@ -19,7 +19,7 @@
                     <a href="{{ url('report/delete', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-danger pull-right runModal"><span class="glyphicon glyphicon-trash"></span></a>
                     <a href="{{ url('report/edit', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a href="{{ url('report/jobModal', ['id': itm.getId()]) }}" title="Cron job" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-time"></span></a>
-                    <a href="{{ url('report/msgModal', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-envelope"></span></a>
+                    {#<a href="{{ url('report/msgModal', ['id': itm.getId()]) }}" title="Notifications" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-envelope"></span></a>#}
                     <a href="{{ url('report/runModal', ['id': itm.getId()]) }}" title="Run now" class="btn btn-sm btn-success pull-right runModal"><span class="glyphicon glyphicon-play"></span></a>
                     {% if itm.getLatestlog()%}
                         {% if !itm.getLatestLog().errors %}
