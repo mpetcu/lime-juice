@@ -11,7 +11,7 @@ class IndexController extends ControllerBase
     public function indexAction(){
         $this->dispatcher->forward(
             array(
-                "controller" => "db",
+                "controller" => "report",
                 "action"     => "index"
             )
         );
