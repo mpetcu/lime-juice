@@ -6,7 +6,7 @@
             <th>Email</th>
             <th class="text-center" width="180px">Last access</th>
             <th class="text-center" width="85px">Type</th>
-            <th class="text-center" width="180px">Actions</th>
+            <th class="text-center" width="265px">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,8 @@
                 <td class="text-center">
                     <a href="{{ url('settings/changeUserStatus', ['id':user.getId()]) }}" class="btn btn-xs btn-{% if user.status%}success{% else %}danger{% endif %} change-status">
                         {% if user.status%}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
-                    <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a>
+                    <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
+                    <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
                 </td>
             </tr>
         {% endfor%}
@@ -49,6 +50,14 @@
 </table>
 <script>
     $(function(){
+
+        $('.runModal').click(function(e){
+            $.get($(this).attr('href'), function(data){
+                $('#loadModal').empty().html(data);
+            });
+            e.preventDefault();
+        });
+
         $('.change-status').click(function(){
             var a = $(this);
             $.get($(this).attr('href'), function(data){

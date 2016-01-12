@@ -154,5 +154,23 @@ class SettingsController extends ControllerBase
         $this->view->disable();
     }
 
+    public function permissionModalAction(){
+        $db = Db::find();
+        $user = User::findById($this->request->get('id'));
+        $this->view->dbm = $db;
+        $this->view->user = $user;
+    }
+
+    public function changePermissionAction(){
+        $perm = $this->request->get('perm');
+        $db = Db::find();
+        foreach($db as $itm){
+            $parent = [];
+            if(isset($perm['db'][$itm->getId()])){
+                
+            }
+        }
+    }
+
 }
 

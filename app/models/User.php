@@ -12,6 +12,7 @@ class User extends \Phalcon\Mvc\Collection
     public $email;
     //public $firstName;
     //public $lastName;
+    public $permissions; //set permission type to resources
     public $passHash;
     public $type; //master or operator
     public $status;
@@ -30,6 +31,23 @@ class User extends \Phalcon\Mvc\Collection
 
     public function getId(){
         return $this->_id->{'$id'};
+    }
+
+
+    public function setPermisson($model, $id, $type){
+        $this->to[sha1($model.$id)] = ['model' => $model, 'id' => $id, 'type' => $type];
+    }
+
+    public function removePermisson($model, $id){
+        unset($this->to[sha1($model.$id)]);
+    }
+
+    public function hasPermission($model, $id, $type){
+        if(isset($this->to[sha1($model.$id)])){
+            if($this->to[sha1($model.$id)]['type'] == $type)
+                return true;
+        }
+        return false;
     }
 
     public function setPass($pass){
