@@ -19,6 +19,7 @@ class User extends \Phalcon\Mvc\Collection
     public $session;
     public $sessionDate;
 
+
     public function getSource(){
         return "user";
     }
@@ -34,21 +35,34 @@ class User extends \Phalcon\Mvc\Collection
     }
 
 
-    public function setPermisson($model, $id, $type){
+    public function setPermission($model, $id, $type){
         $this->to[sha1($model.$id)] = ['model' => $model, 'id' => $id, 'type' => $type];
     }
 
-    public function removePermisson($model, $id){
-        unset($this->to[sha1($model.$id)]);
+    public function getObjectPermissions($obj){
+        $model = get_class($obj);
+        $id = $obj->getId();
+        if(isset($this->to[sha1($model.$id)])){
+            return $this->to[sha1($model.$id)]['type'];
+        }
+        return [];
     }
 
-    public function hasPermission($model, $id, $type){
+    public function removePermissions(){
+        $this->to = [];
+        return $this;
+    }
+
+    public function hasPermission($obj, $type){
+        $model = get_class($obj);
+        $id = $obj->getId();
         if(isset($this->to[sha1($model.$id)])){
-            if($this->to[sha1($model.$id)]['type'] == $type)
+            if(in_array($type, $this->to[sha1($model.$id)]['type']))
                 return true;
         }
         return false;
     }
+
 
     public function setPass($pass){
         $this->passHash = User::getPassHash($pass);

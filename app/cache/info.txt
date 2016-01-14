@@ -1,1 +1,1 @@
-Give Read/Write/Execute permissions here!
+Recursive Read/Write/Execute permissions must be defined here!

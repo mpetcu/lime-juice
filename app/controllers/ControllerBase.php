@@ -23,6 +23,7 @@ abstract class ControllerBase extends Controller
         $this->securePage($this->isSecure);
         $this->view->showMenu = true;
         $this->view->userRole = $this->getUserRole();
+        $this->view->authenticatedUser = $this->getUserSession();
     }
 
     /**
@@ -108,6 +109,18 @@ abstract class ControllerBase extends Controller
     protected function getUserRole(){
         if($this->isUserAuthenticated()){
             return $this->session->get("user-data")->type;
+        }
+        return false;
+    }
+
+
+    /**
+     * Get user collection of an Authenticated user or false;
+     * @return bool
+     */
+    protected function getUserSession(){
+        if($this->isUserAuthenticated()){
+            return $this->session->get("user-data");
         }
         return false;
     }

@@ -139,7 +139,7 @@ class SettingsController extends ControllerBase
             $user->save();
 
             //send email
-            $this->mail->addAddress($this->email); //todo here
+            $this->mail->addAddress($user->email);
             $this->mail->Subject = 'Reset password [Report manager]';
             $this->mail->Body = 'A new password has been generated for your account:<br><br/>' .
                 '<b>' . $passString . '</b><br/><br/>' .
@@ -162,14 +162,18 @@ class SettingsController extends ControllerBase
     }
 
     public function changePermissionAction(){
-        $perm = $this->request->get('perm');
-        $db = Db::find();
-        foreach($db as $itm){
-            $parent = [];
-            if(isset($perm['db'][$itm->getId()])){
-                
+        $user = User::findById($this->request->get('id'));
+        $user->removePermissions();
+        if($perm = $this->request->get('perm')) {
+            foreach ($perm as $key => $val) {
+                foreach ($val as $key2 => $val2) {
+                    $user->setPermission($key, $key2, $val2);
+                }
             }
         }
+        $user->save();
+        echo 1;
+        exit;
     }
 
 }

@@ -5,11 +5,13 @@
 {% if dbsl %}
 <ul class="files">
 {% for itm in dbsl %}
+    {% if authenticatedUser.hasPermission(itm, 'view') %}
     <li>
-        <a id="{{ itm.getId() }}_d" class="hide-tree" ><span class="glyphicon glyphicon-minus-sign orange"></span></a> <a>{{ itm.name }} <i class="gray">({{ itm.countReports() }} reports)</i></a>
+        <a id="{{ itm.getId() }}_d" class="hide-tree" ><span class="glyphicon glyphicon-minus-sign orange"></span></a> <a>{{ itm.name }} {#<i class="gray">({{ itm.countReports() }} reports)</i>#}</a>
         {% if itm.countReports() %}
             <ul class="{{ itm.getId() }}_dc hide-tree-itm">
                 {% for itm2 in itm.getReports() %}
+                    {% if authenticatedUser.hasPermission(itm2, 'view') %}
                     <li>
                         <a id="{{ itm2.getId() }}_r" class="hide-tree"><span class="glyphicon glyphicon-minus-sign orange"></span></a> <a>{{ itm2.name }} <i class="gray">({{ itm2.getLogCount() }} logs)</i></a>
                         <table class="table table-hover table-bordered table-striped {{ itm2.getId() }}_rc hide-tree-itm">
@@ -25,7 +27,7 @@
                             <tbody>
                                 <tr>
                                     <td colspan="5" class="gray">
-                                        <a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>
+                                        {% if authenticatedUser.hasPermission(itm2, 'run') %}<a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>{% endif %}
                                         <!--<a href="" class="btn btn-default btn-xs runModal"><span class="glyphicon glyphicon-eye-open"></span> Show all</a>-->
                                         &nbsp; <span class="glyphicon glyphicon-time"></span> <i>Next run: <strong>{{utility.formatDate(itm2.getJob().getNextRun())}}</strong></i>
                                     </td>
@@ -51,15 +53,17 @@
                                         </tr>
                                     {% endfor %}
                                 {% else %}
-                                    <tr><td colspan="5" class="text-center" >No reports generated. Generate here: <a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a> </td></tr>
+                                    <tr><td colspan="5" class="text-center" >No reports generated. {% if authenticatedUser.hasPermission(itm2, 'run') %}Generate here: <a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>{% endif %} </td></tr>
                                 {% endif %}
                             </tbody>
                         </table>
                     </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endif %}
     </li>
+    {% endif %}
 {% endfor %}
 </ul>
 {% else %}
