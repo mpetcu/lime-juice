@@ -54,6 +54,9 @@ class User extends \Phalcon\Mvc\Collection
     }
 
     public function hasPermission($obj, $type){
+        if($this->type == 'master'){
+            return true;
+        }
         $model = get_class($obj);
         $id = $obj->getId();
         if(isset($this->to[sha1($model.$id)])){

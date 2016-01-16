@@ -45,7 +45,7 @@
                                             <td class="text-center">{{ utility.formatDate(itm3.startTime) }}</td>
                                             <td class="text-center">{{ itm3.totalTime }} sec</td>
                                             {% if itm3.errors %}
-                                                <td class="text-center" colspan="2"><span class=" glyphicon glyphicon-warning-sign" title="{{ itm3.errors }}"></span></td>
+                                                <td class="text-center" colspan="2"><span class=" glyphicon glyphicon-warning-sign" title="{{ itm3.errors }}"></span> Error</td>
                                             {% else %}
                                                 <td class="text-center">{{ itm3.rows }} rows</td>
                                                 <td class="text-center"><a href="{{ utility.getFile(itm3.fileLocation) }}" target="_blank"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(itm3.fileSize) }}</a></td>
