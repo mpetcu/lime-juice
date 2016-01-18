@@ -12,6 +12,7 @@ class Report extends \Phalcon\Mvc\Collection
     public $qry;
     public $logCount;
     public $status;
+    public $format;
 
     public function getSource(){
         return "report";
@@ -24,6 +25,9 @@ class Report extends \Phalcon\Mvc\Collection
     public function beforeCreate(){
         $this->status = 1;
         $this->logCount = 0;
+        if($this->format = null){
+            $this->format = 'CSV';
+        }
     }
 
     public function beforeUpdate(){
@@ -175,9 +179,10 @@ class Report extends \Phalcon\Mvc\Collection
      * @param $location
      * @return array
      */
-    public function generateFile($type = 'user', $fileType = 'CSV'){
+    public function generateFile($type = 'user', $fileType = null){
+        $fileType = $fileType === null?$this->format:$fileType;
         $startTime = microtime(true);
-        $return = $this->setCSV($type); //TODO implement other functions
+        $return = $this->{"set$fileType"}(); //TODO implement other functions
         $endTime = microtime(true);
         $totalTime = number_format($endTime-$startTime,3);
         $logData = [
@@ -194,7 +199,7 @@ class Report extends \Phalcon\Mvc\Collection
      * Create a CSV file from array provided by run()->fetchAll()
      * @return array
      */
-    private function setCSV($type = null){
+    private function setCSV(){
         try {
             $absPath = $this->getDI()->get('config')->application->publicDir;
             $reportsPath = $this->getDI()->get('config')->reportsPath;
@@ -210,8 +215,8 @@ class Report extends \Phalcon\Mvc\Collection
             $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
             while ($row = $result->fetch()){
                 if($i==0)
-                    fputcsv($fp, array_keys($row), ';');
-                fputcsv($fp, $row, ';'); $i++;
+                    fputcsv($fp, array_keys($row));
+                fputcsv($fp, $row); $i++;
             }
             fclose($fp);
         }catch (Exception $e){
@@ -220,6 +225,57 @@ class Report extends \Phalcon\Mvc\Collection
         return [
             'fileLocation' => $fileLocation,
             'fileType' => 'csv',
+            'fileSize' => filesize($absPath.$fileLocation),
+            'rows' => $i,
+            'errors' => false,
+        ];
+    }
+
+    /**
+     * Create a Excel file from array provided by run()->fetchAll()
+     * @return array
+     */
+    private function setExcel(){
+        try {
+            $absPath = $this->getDI()->get('config')->application->publicDir;
+            $reportsPath = $this->getDI()->get('config')->reportsPath;
+            $hash = md5(microtime());
+            $hashDir =  $reportsPath.substr($hash, 0, 2). '/' . substr($hash, 2, 2);
+            $hashFile = substr($hash, 4);
+            if(!is_dir($absPath.$hashDir))
+                mkdir($absPath.$hashDir, 0755, true);
+
+            $exObj = new PHPExcel();
+            $exObj->setActiveSheetIndex(0);
+            //$exObj->getActiveSheet()->setCellValue('A1', 'TEST TEST TEST');
+
+            $fileLocation =  $hashDir . '/' . $hashFile . '.xlsx';
+
+            $i=0;
+            $result = $this->run();
+            $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
+            while ($row = $result->fetch()){
+                if($i==0){
+                    $j = 'A';
+                    foreach (array_keys($row) as $cell)
+                        $exObj->getActiveSheet()->setCellValue(($j++).($i+1), $cell);
+                    $i++;
+                }
+                $j = 'A';
+                foreach ($row as $cell)
+                    $exObj->getActiveSheet()->setCellValue(($j++).($i+1), $cell);
+                $i++;
+            }
+            $wObj = new PHPExcel_Writer_Excel2007($exObj);
+            $wObj->save($fileLocation);
+
+
+        }catch (Exception $e){
+            return ['errors' => $e->getMessage()];
+        }
+        return [
+            'fileLocation' => $fileLocation,
+            'fileType' => 'csvExcel',
             'fileSize' => filesize($absPath.$fileLocation),
             'rows' => $i,
             'errors' => false,

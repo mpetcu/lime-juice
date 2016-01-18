@@ -3,6 +3,7 @@
 <ul>
     {{ form.renderErrorsDecorated() }}
     {{ form.renderDecorated('name', ['placeholder':'Sugestive short label here']) }}
+    {{ form.renderDecorated('format') }}
     {{ form.renderDecorated('qry',['placeholder':'Valid query script here'])}}
     <li class="button"><input type="submit" class="btn btn-primary" value="Create report"/></li>
 </ul>

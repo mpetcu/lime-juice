@@ -25,7 +25,7 @@ class MainTask extends \Phalcon\CLI\Task
         if(count($jobs)){
             foreach($jobs as $job){
                 $report = $job->getReport();
-                $report->generateFile('cron', 'CSV');
+                $report->generateFile('cron');
                 $report->save();
                 $job->save();
             }

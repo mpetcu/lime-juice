@@ -68,7 +68,7 @@ class ReportController extends ControllerBase
      */
     public function runAction(){
         $report = Report::findById($this->request->get('id'));
-        $report->generateFile('user', 'CSV')->save();
+        $report->generateFile('user')->save();
         $report->save();
 
         //send mail

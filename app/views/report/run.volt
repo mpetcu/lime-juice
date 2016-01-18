@@ -9,7 +9,7 @@
     </div>
 
     Rows: <strong class="rows"> {% if lastRun and report.getLatestLog().rows %}{{ report.getLatestLog().rows }}{% else %}--{% endif %} </strong><br/>
-    Format: <strong class="fileFormat"> CSV </strong><br/>
+    Format: <strong class="fileFormat"> {{ report.format }} </strong><br/>
     File size: <strong class="fileFormat"> {% if lastRun and report.getLatestLog().fileSize %}{{ utility.formatBytes(report.getLatestLog().fileSize) }}{% else %}--{% endif %} </strong><br/>
     Starts at: <strong class="startTime"> {% if lastRun and report.getLatestLog().startTime %}{{ report.getLatestLog().startTime }}{% else %}--{% endif %} </strong><br/>
     Ends at: <strong class="endTime"> {% if lastRun and report.getLatestLog().endTime %}{{ report.getLatestLog().endTime}}{% else %}--{% endif %} </strong><br/>

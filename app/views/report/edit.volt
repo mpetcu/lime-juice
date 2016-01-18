@@ -3,6 +3,7 @@
 <ul>
     {{ form.renderErrorsDecorated() }}
     {{ form.renderDecorated('name') }}
+    {{ form.renderDecorated('format') }}
     {{ form.renderDecorated('qry') }}
     <li class="button"><input type="submit" class="btn btn-primary" value="Save"/><input type="button" location="{{ url('report/new', ['db': report.did]) }}" class="save-as btn btn-default" value="Save as new"/></li>
 </ul>

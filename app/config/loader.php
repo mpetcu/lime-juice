@@ -5,7 +5,8 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir,
         $config->application->formsDir,
-        $config->application->libraryDir
+        $config->application->libraryDir,
+        $config->application->libraryDir."PHPExcel/Classes/"
     ]
 );
 $loader->register();
