@@ -71,5 +71,7 @@ return new \Phalcon\Config([
 - *PHP Cron Expression Parser* - https://github.com/mtdowling/cron-expression;
 - *PHPMailer* - https://github.com/PHPMailer/PHPMailer;
 - *PHPExcel* - https://github.com/PHPOffice/PHPExcel;
+- *JQuery* - http://jquery.com;
+- *Bootstrap* - http://getbootstrap.com;
    
 
