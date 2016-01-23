@@ -13,6 +13,7 @@ A small user account management is provided. There are 2 account types:
 ##Install & configure##
 **Requirements:**
   - *PHP >= 5.3 - http://php.net/downloads.php*;
+  - *PHP extension php_xml and php_zip enabled (required by PHPExcel)*;
   - *Phalcon Framework >= 2.0 - https://phalconphp.com/en/download*; 
   - *MongoDB(service & PHP extension) - https://www.mongodb.org/downloads*;
 
@@ -69,5 +70,8 @@ return new \Phalcon\Config([
 ##Special thanks to##
 - *PHP Cron Expression Parser* - https://github.com/mtdowling/cron-expression;
 - *PHPMailer* - https://github.com/PHPMailer/PHPMailer;
+- *PHPExcel* - https://github.com/PHPOffice/PHPExcel;
+- *JQuery* - http://jquery.com;
+- *Bootstrap* - http://getbootstrap.com;
    
 
