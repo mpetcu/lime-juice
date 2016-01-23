@@ -55,12 +55,14 @@ class SettingsController extends ControllerBase
     }
 
     /**
-     * Will run only at startup
+     * Will run only at startup if no users defined
      */
     public function installAction()
     {
-        $this->view->showMenu = false;
+        if(count(User::find()))
+            return $this->response->redirect();
 
+        $this->view->showMenu = false;
         $errorMessage = [];
 
         if(!(is_readable('reports') && is_writable('reports'))){

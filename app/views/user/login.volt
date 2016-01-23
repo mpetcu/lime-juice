@@ -12,7 +12,7 @@
             <input type='password' id="pass" name="auth[pass]"/>
         </li>
         <li>
-            <input type='checkbox' id="cookie" value="1" name="conf[cookie]" class="default"/>
+            <input type='checkbox' id="cookie" value="1" name="auth[cookie]" class="default"/>
             <label for="cookie" class="default">Remember me</label>
         </li>
         <li>
