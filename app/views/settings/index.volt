@@ -6,7 +6,7 @@
             <th>Email</th>
             <th class="text-center" width="180px">Last access</th>
             <th class="text-center" width="85px">Type</th>
-            <th class="text-center" width="265px">Actions</th>
+            <th class="text-center" width="270x">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +16,7 @@
                 <td>{{ user.email }}</td>
                 <td class="text-center">{% if user.sessionDate %}{{ utility.formatDate(user.sessionDate) }}{% else %}-{% endif %}</td>
                 <td class="text-center">
+                    {% if user.type != 'master' %}
                     <div class="dropdown">
                         <a class="btn btn-xs btn-default dropdown-toggle" type="button" id="dm1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                            <span class="glyphicon glyphicon-user"></span> {{ user.type }} <span class="caret"></span>
@@ -29,7 +30,9 @@
                 <td class="text-center">
                     <a href="{{ url('settings/changeUserStatus', ['id':user.getId()]) }}" class="btn btn-xs btn-{% if user.status%}success{% else %}danger{% endif %} change-status">
                         {% if user.status%}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
-                    <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
+                    {% if user.type != 'master' %}
+                        <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
+                    {% endif %}
                     <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
                 </td>
             </tr>

@@ -105,7 +105,6 @@ class SettingsController extends ControllerBase
                 $str = str_replace('install=none;', 'install=done;', $str);
                 fwrite($fp, $str);
                 fclose($fp);
-
                 return $this->response->redirect('index/index');
             }
         }
@@ -175,7 +174,7 @@ class SettingsController extends ControllerBase
         }
         $user->save();
         echo 1;
-        exit;
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
 
 }

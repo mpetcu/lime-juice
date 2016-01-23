@@ -13,25 +13,24 @@
                         <thead>
                             <tr>
                                 <th>Databases & Reports</th>
-                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-eye-open" title="Expand"></span> View</th>
-                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-play" title="Expand"></span> Run</th>
+                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-eye-open"></span> View</th>
+                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-play"></span> Run</th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for itm in dbm %}
                                 <tr style="background-color: #f2eeff">
-                                    <td><span id="{{ itm.getId() }}" class="glyphicon orange glyphicon-minus-sign listExpander" title="Expand" ></span> <b>{{ itm.name }} <i class="gray">({{ itm.getReports()|length }})</i></b></td>
-                                    <td class="text-center"><input type="checkbox" value="view" name="perm[Db][{{ itm.getId() }}][]" class="main" id="ck1-{{ itm.getId() }}" {% if user.hasPermission(itm, 'view') %}checked{% endif %} /></td>
-                                    <td class="text-center"><input type="checkbox" value="run" name="perm[Db][{{ itm.getId() }}][]" class="main" id="ck2-{{ itm.getId() }}" {% if user.hasPermission(itm, 'run') %}checked{% endif %} /></td>
+                                    <td><span id="{{ itm.getId() }}"  style="cursor: pointer" class="glyphicon orange glyphicon-minus-sign listExpander" title="Collapse" ></span> <b>{{ itm.name }} <i class="gray">({{ itm.getReports()|length }})</i></b></td>
+                                    <td class="text-center"><input type="checkbox" value="view" name="perm[Db][{{ itm.getId() }}][]" class="main" id="r-{{ itm.getId() }}" {% if user.hasPermission(itm, 'view') %}checked{% endif %} /></td>
+                                    <td class="text-center"><input type="checkbox" value="run" name="perm[Db][{{ itm.getId() }}][]" class="main" id="wr-{{ itm.getId() }}" {% if user.hasPermission(itm, 'run') %}checked{% endif %} disabled /></td>
                                 </tr>
                                 {% for itm2 in itm.getReports() %}
                                     <tr class="{{ itm.getId() }}">
                                         <td class="padding-left: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ itm2.name }}</td>
-                                        <td class="text-center"><input type="checkbox" value="view" name="perm[Report][{{ itm2.getId() }}][]" class="ck1-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'view') %}checked{% endif %} /></td>
-                                        <td class="text-center"><input type="checkbox" value="run" name="perm[Report][{{ itm2.getId() }}][]" class="ck2-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'run') %}checked{% endif %} /></td>
+                                        <td class="text-center"><input type="checkbox" value="view" name="perm[Report][{{ itm2.getId() }}][]" class="r-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'view') %}checked{% endif %} id="r-{{ itm2.getId() }}" /></td>
+                                        <td class="text-center"><input type="checkbox" value="run" name="perm[Report][{{ itm2.getId() }}][]" class="wr-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'run') %}checked{% endif %} id="wr-{{ itm2.getId() }}" disabled /></td>
                                     </tr>
                                 {% endfor %}
-
                         {% endfor %}
                         </tbody>
                     </table>
@@ -49,13 +48,16 @@
     <script>
         $(function() {
             $('#permissionsModal').modal('show');
+            $("input[type='checkbox'][value='view']").each(function(){
+                $('#w' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
+            });
             hideAlertSuccess();
 
             $('.listExpander').click(function(){
                 if($('.'+$(this).attr('id')).is(":visible")) {
-                    $(this).find('.glyphicon').removeClass('glyphicon-minus-sign').addClass('glyphicon-plus-sign').attr('title', 'Expand');
+                    $(this).removeClass('glyphicon-minus-sign').addClass('glyphicon-plus-sign').attr('title', 'Expand');
                 }else{
-                    $(this).find('.glyphicon').removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign').attr('title', 'Collapse');
+                    $(this).removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign').attr('title', 'Collapse');
                 }
                 $('.'+$(this).attr('id')).toggle();
             });
@@ -69,6 +71,9 @@
                     else
                         $('#'+$(this).attr('class')).prop('checked', false);
                 }
+                $("input[type='checkbox'][value='view']").each(function(){
+                    $('#w' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
+                });
             });
 
             $("#userPermissonsForm").submit(function(){
