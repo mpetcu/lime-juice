@@ -255,11 +255,26 @@ class Report extends \Phalcon\Mvc\Collection
             $result = $this->run();
             $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
             $eas = $exObj->getActiveSheet();
+
+            //custom table header format for excel
+            $styleArray = array(
+                'font'  => array(
+                    'bold'  => true,
+                    'color' => array('rgb' => '000000'),
+                ),
+                'fill' => array(
+                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => 'FFA500')
+                )
+            );
+
             while ($row = $result->fetch()){
                 if($i==0){
                     $j = 'A';
-                    foreach (array_keys($row) as $cell)
-                        $eas->setCellValue(($j++).($i+1), $cell);
+                    foreach (array_keys($row) as $cell) {
+                        $eas->setCellValue(($j) . ($i + 1), $cell);
+                        $eas->getStyle(($j++) . ($i + 1))->applyFromArray($styleArray);
+                    }
                     $i++;
                 }
                 $j = 'A';
