@@ -91,11 +91,11 @@ abstract class ControllerBase extends Controller
     protected function isUserAuthenticated(){
         if($this->session->get("user-data"))
             return true;
-        if($this->cookies->get('remember-me')){
-            $user = User::loginUserFromCookie($this->cookies->get('remember-me'));
+        if($this->cookies->has('remember-me')){
+            $user = User::loginUserFromCookie($this->cookies->get('remember-me')->getValue());
             if($user){
                 $this->session->set("user-data", $user);
-                $this->cookies->set('remember-me', $user->session, time() + 30 * 86400);
+                $this->cookies->set('remember-me', $user->setUserCookieHash(), time() + 30 * 86400);
                 return true;
             }
         }

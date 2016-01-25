@@ -16,7 +16,6 @@
                 <td>{{ user.email }}</td>
                 <td class="text-center">{% if user.sessionDate %}{{ utility.formatDate(user.sessionDate) }}{% else %}-{% endif %}</td>
                 <td class="text-center">
-                    {% if user.type != 'master' %}
                     <div class="dropdown">
                         <a class="btn btn-xs btn-default dropdown-toggle" type="button" id="dm1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                            <span class="glyphicon glyphicon-user"></span> {{ user.type }} <span class="caret"></span>
@@ -36,7 +35,7 @@
                     <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
                 </td>
             </tr>
-        {% endfor%}
+        {% endfor %}
     </tbody>
     <tfoot>
         <tr>

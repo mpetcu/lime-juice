@@ -61,7 +61,7 @@ class UserController extends ControllerBase
             if($user){
                 $this->session->set("user-data", $user);
                 if(isset($auth['cookie']))
-                    $this->cookies->set('remember-me', $user->session, time() + 30 * 86400);
+                    $this->cookies->set('remember-me', $user->setUserCookieHash(), time() + 30 * 86400);
                 if($ref = $this->request->getHTTPReferer()) {
                     return $this->response->redirect($ref);
                 }
@@ -83,6 +83,7 @@ class UserController extends ControllerBase
             return $this->response->redirect($ref);
         return $this->response->redirect();
     }
+
 
 
 }

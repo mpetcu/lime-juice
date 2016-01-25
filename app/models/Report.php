@@ -25,7 +25,7 @@ class Report extends \Phalcon\Mvc\Collection
     public function beforeCreate(){
         $this->status = 1;
         $this->logCount = 0;
-        if($this->format = null){
+        if($this->format == null){
             $this->format = 'CSV';
         }
     }
@@ -254,16 +254,17 @@ class Report extends \Phalcon\Mvc\Collection
             $i=0;
             $result = $this->run();
             $result->setFetchMode(Phalcon\Db::FETCH_ASSOC);
+            $eas = $exObj->getActiveSheet();
             while ($row = $result->fetch()){
                 if($i==0){
                     $j = 'A';
                     foreach (array_keys($row) as $cell)
-                        $exObj->getActiveSheet()->setCellValue(($j++).($i+1), $cell);
+                        $eas->setCellValue(($j++).($i+1), $cell);
                     $i++;
                 }
                 $j = 'A';
                 foreach ($row as $cell)
-                    $exObj->getActiveSheet()->setCellValue(($j++).($i+1), $cell);
+                    $eas->setCellValue(($j++).($i+1), $cell);
                 $i++;
             }
             $wObj = new PHPExcel_Writer_Excel2007($exObj);

@@ -94,11 +94,14 @@ class User extends \Phalcon\Mvc\Collection
     }
 
     public static function loginUserFromCookie($cookie){
-        $user = User::findFirst([ 'conditions' => ['session' => $cookie->getValue(), 'status' => 1]]);
-        if($user){
-            $user->setSession();
-            $user->save();
-            return $user;
+        $arr = (array) json_decode(base64_decode($cookie));
+        if(isset($arr['a'])) {
+            $user = User::findFirst(['conditions' => ['session' => $arr['a'], 'status' => 1]]);
+            if ($user && $user->checkUserCookieHash($cookie)) {
+                $user->setSession();
+                $user->save();
+                return $user;
+            }
         }
         return false;
     }
@@ -117,6 +120,20 @@ class User extends \Phalcon\Mvc\Collection
 
     public function setStatus($status){
         $this->status = (int) $status;
+    }
+
+    /**
+     * secure cookie
+     */
+    public function setUserCookieHash(){
+        return base64_encode(json_encode(['a' => $this->session,'b' => sha1($this->passHash.$this->session)]));
+    }
+
+    public function checkUserCookieHash($hash){
+        $arr = (array) json_decode(base64_decode($hash));
+        if(sha1($this->passHash.$this->session) === $arr['b'])
+            return true;
+        return false;
     }
 
 }
