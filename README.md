@@ -40,7 +40,7 @@ return new \Phalcon\Config([
         'libraryDir'     => __DIR__ . '/../../app/library/',
         'cacheDir'       => __DIR__ . '/../../app/cache/',
         'publicDir'      => __DIR__ . '/../../public/',
-        'baseUri'        => '', //full app path. (http://mydomain.com/reporter/)
+        'baseUri'        => '', //full app path. Must end with '/' (http://mydomain.com/reporter/)
     ],
     'mail' => [
         'host'         => '', //hostname required
