@@ -1,3 +1,6 @@
+/*bootstrap hack to show icons*/
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+
 /* General */
 #wrapper {min-width: 550px}
 #wrapper a{cursor: pointer}
