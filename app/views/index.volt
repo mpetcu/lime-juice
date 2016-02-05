@@ -1,7 +1,8 @@
 <html>
 	<head>
 		<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
-		<meta name="viewport" content="width=550, user-scalable=no">
+		<meta name="viewport" content="width=550, user-scalable=no"/>
+		<meta charset="UTF-8"/>
 		<title>Report</title>
 
 		<!-- jQuery -->
@@ -10,7 +11,7 @@
 		<!-- Bootstrap 3.3.5 -->
 		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="/css/bootstrap-social.min.css"/>
-		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/css/font-awesome.min.css"/>
 		<script src="/js/bootstrap.min.js"></script>
 
 		<!-- Custom Css/JS -->
