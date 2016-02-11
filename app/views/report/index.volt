@@ -13,8 +13,8 @@
                 {% for itm2 in itm.getReports() %}
                     {% if authenticatedUser.hasPermission(itm2, 'view') %}
                     <li>
-                        <a id="{{ itm2.getId() }}_r" class="hide-tree"><span class="glyphicon glyphicon-minus-sign orange"></span></a> <a>{{ itm2.name }} <i class="gray">({{ itm2.getLogCount() }} logs)</i></a>
-                        <table class="table table-hover table-bordered table-striped {{ itm2.getId() }}_rc hide-tree-itm">
+                        <a id="{{ itm2.getId() }}_r" class="hide-tree"><span class="glyphicon glyphicon-plus-sign orange"></span></a> <a>{{ itm2.name }} <i class="gray">({{ itm2.getLogCount() }} logs)</i></a>
+                        <table class="table table-hover table-bordered table-striped {{ itm2.getId() }}_rc hide-tree-itm" style="display: none">
                             <thead>
                             <tr>
                                 <th class="text-center">Type</th>
@@ -54,7 +54,7 @@
                                                 <td class="text-center" colspan="2"><span class=" glyphicon glyphicon-warning-sign" title="{{ itm3.errors }}"></span> Error</td>
                                             {% else %}
                                                 <td class="text-center">{{ itm3.rows }} rows</td>
-                                                <td class="text-center"><a href="{{ utility.getFile(itm3.fileLocation) }}" target="_blank"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(itm3.fileSize) }}</a></td>
+                                                <td class="text-center"><a href="{{ utility.getFile(itm3.fileLocation) }}" target="_blank" title="Download"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(itm3.fileSize) }}</a></td>
                                             {% endif %}
                                         </tr>
                                     {% endfor %}
