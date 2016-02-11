@@ -29,7 +29,13 @@
                                     <td colspan="5" class="gray">
                                         {% if authenticatedUser.hasPermission(itm2, 'run') %}<a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>{% endif %}
                                         <!--<a href="" class="btn btn-default btn-xs runModal"><span class="glyphicon glyphicon-eye-open"></span> Show all</a>-->
-                                        &nbsp; <span class="glyphicon glyphicon-time"></span> <i>Next run: <strong>{{utility.formatDate(itm2.getJob().getNextRun())}}</strong></i>
+                                        &nbsp; <span class="glyphicon glyphicon-time"></span> <i>Next run:
+                                            {% if date('Y-m-d H:i:s') < itm2.getJob().getNextRun() %}
+                                                <strong class="black">{{utility.formatDate(itm2.getJob().getNextRun())}}</strong>
+                                            {% else %}
+                                                <strong class="red"> [ not set ] </strong>
+                                            {% endif %}
+                                        </i>
                                     </td>
                                 </tr>
                                 {% if itm2.getLogs() %}

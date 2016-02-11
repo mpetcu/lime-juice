@@ -17,7 +17,15 @@ class SettingsController extends ControllerBase
     }
 
     public function updateAction(){
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+    }
 
+    /**
+     * Put method inside a controller
+     */
+    public function testAction(){
+        echo 'Hello world';
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER); //will stop rendering view
     }
 
     /**
