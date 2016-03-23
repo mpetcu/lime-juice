@@ -283,7 +283,7 @@ class Report extends \Phalcon\Mvc\Collection
                 $i++;
             }
             $wObj = new PHPExcel_Writer_Excel2007($exObj);
-            $wObj->save($fileLocation);
+            $wObj->save($absPath.$fileLocation);
 
 
         }catch (Exception $e){
