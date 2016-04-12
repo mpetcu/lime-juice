@@ -10,15 +10,13 @@ class User extends \Phalcon\Mvc\Collection
 {
     public $_id;
     public $email;
-    //public $firstName;
-    //public $lastName;
     public $permissions; //set permission type to resources
     public $passHash;
     public $type; //master or operator
     public $status;
     public $session;
     public $sessionDate;
-
+    public $config;
 
     public function getSource(){
         return "user";
@@ -34,6 +32,21 @@ class User extends \Phalcon\Mvc\Collection
         return $this->_id->{'$id'};
     }
 
+    public function setConfig($key, $val){
+        $this->config[$key] = $val;
+        $this->save();
+        return $this;
+    }
+
+    public function getConfig($key = null){
+        if($key === null)
+            return $this->config;
+        else {
+            if(isset($this->config[$key]))
+                return $this->config[$key];
+        }
+        return false;
+    }
 
     public function setPermission($model, $id, $type){
         $this->to[sha1($model.$id)] = ['model' => $model, 'id' => $id, 'type' => $type];

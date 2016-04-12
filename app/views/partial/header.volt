@@ -2,7 +2,7 @@
     <div class="container-fluid ">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                <span style="color:orange;font-size:30px"><strong>R</strong>eport manager (<?php echo VERSION ?>)</span>
+                <span style="color:orange;font-size:28px"><strong>R</strong>eport manager <span style="color: #9d9d9d; display: inline-block;font-size: 9px; left: -35px;position: relative;top: 11px;font-style: italic"><?php echo VERSION ?></span></span>
             </a>
             {% if showMenu %}
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,10 +17,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right ">
                 {% if showLogOut %}
-                    <li><p class="navbar-text" style="color: orange"> &nbsp;&nbsp;&nbsp; <strong>{{ sessionUserName }}</strong></p></li>
-                {% endif %}
-                {% if userRole == 'master' %}
-                    <li><a href="{{ url('db/index') }}"><span class="glyphicon glyphicon-tags"></span> &nbsp;Databases</a></li>
+                    <li><p class="navbar-text" style="color: orange"> &nbsp;&nbsp;&nbsp; {{ sessionUserName }}</p></li>
                 {% endif %}
                 <li><a href="{{ url('report/index') }}"><span class="glyphicon glyphicon-play"></span> Reports</a></li>
                 {% if userRole == 'master' %}

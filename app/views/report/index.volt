@@ -1,109 +1,98 @@
-<h1 class="head"><span class="glyphicon glyphicon-play"></span> Reports
-    <a id="collapse-all" title="Delete" class="btn btn-default pull-right"><span class="glyphicon glyphicon-minus"></span> Collapse all</a>
-    <a id="expand-all" title="Edit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Expand all</a>
-</h1>
-{% if dbsl %}
-<ul class="files">
-{% for itm in dbsl %}
-    {% if authenticatedUser.hasPermission(itm, 'view') %}
-    <li>
-        <a id="{{ itm.getId() }}_d" class="hide-tree" ><span class="glyphicon glyphicon-minus-sign orange"></span></a> <a>{{ itm.name }} {#<i class="gray">({{ itm.countReports() }} reports)</i>#}</a>
-        {% if itm.countReports() %}
-            <ul class="{{ itm.getId() }}_dc hide-tree-itm">
-                {% for itm2 in itm.getReports() %}
-                    {% if authenticatedUser.hasPermission(itm2, 'view') %}
-                    <li>
-                        <a id="{{ itm2.getId() }}_r" class="hide-tree"><span class="glyphicon glyphicon-plus-sign orange"></span></a> <a>{{ itm2.name }} <i class="gray">({{ itm2.getLogCount() }} logs)</i></a>
-                        <table class="table table-hover table-bordered table-striped {{ itm2.getId() }}_rc hide-tree-itm" style="display: none">
-                            <thead>
-                            <tr>
-                                <th class="text-center">Type</th>
-                                <th class="text-center">{#<a href="#" style="color: blue"><span class="glyphicon glyphicon-sort-by-attributes"></span>#} Date {#</a>#}</th>
-                                <th class="text-center">Time</th>
-                                <th class="text-center">Rows</th>
-                                <th class="text-center">Download</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+<div class="reportsRefresh">
+    <h1 class="head"><span class="glyphicon glyphicon-tag"></span> {{ dbm.name }}
+        {% if userRole == 'master' %}
+            <a href="{{ url('db/delete', ['id': dbm.getId()]) }}" title="Delete" class="btn btn-default pull-right btn-danger runModal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+            <a href="{{ url('db/edit', ['id': dbm.getId()]) }}" title="Edit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-warning pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> New report</a>
+        {% endif %}
+    </h1>
+    <ul class="reports">
+        {% for itm in dbm.getReports() %}
+            {% if authenticatedUser.hasPermission(itm, 'view') %}
+                <li {% if itm.logs is defined %}class="{% if itm.getLatestLog().errors %}red{%else%}green{%endif%}"{% endif %}>
+                    <h2 class="title">{{ itm.name }} <i class="gray">({{ itm.getLogCount() }} logs)</i></h2>
+                    {% if userRole == 'master' %}
+                        <a href="{{ url('report/delete', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-danger pull-right runModal"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="{{ url('report/edit', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ url('report/jobModal', ['id': itm.getId()]) }}" title="Cron job" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-time"></span></a>
+                    {% else %}
+                        <a href="{{ url('report/msgModal', ['id': itm.getId()]) }}" title="Notifications" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-envelope"></span></a>
+                    {% endif %}
+                    {% if authenticatedUser.hasPermission(itm, 'run') %}
+                        <a href="{{ url('report/runModal', ['id': itm.getId()]) }}" title="Run now" class="btn btn-sm btn-success pull-right runModal"><span class="glyphicon glyphicon-play"></span></a>
+                    {% endif %}
+                    <div style="font-size: 0.85em; color: #555; padding-top: 5px; font-style: italic">
+                        {% if date('Y-m-d H:i:s') < itm.getJob().getNextRun() %}<span class="glyphicon glyphicon-time"></span> {{utility.formatDate(itm.getJob().getNextRun())}}<br/>{% endif %}
+                        {% if userRole == 'master' %}<span class="glyphicon glyphicon-user"></span> Petcu Mihai; <br/></b>{% endif %}
+                    </div>
+                    {% if itm.getLatestlog()%}
+                        <div class="log">
+                            <table width="100%" class="table table-striped table-condensed">
+                                <thead>
                                 <tr>
-                                    <td colspan="5" class="gray">
-                                        {% if authenticatedUser.hasPermission(itm2, 'run') %}<a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>{% endif %}
-                                        <!--<a href="" class="btn btn-default btn-xs runModal"><span class="glyphicon glyphicon-eye-open"></span> Show all</a>-->
-                                        &nbsp; <span class="glyphicon glyphicon-time"></span> <i>Next run:
-                                            {% if date('Y-m-d H:i:s') < itm2.getJob().getNextRun() %}
-                                                <strong class="black">{{utility.formatDate(itm2.getJob().getNextRun())}}</strong>
-                                            {% else %}
-                                                <strong class="red"> [ not set ] </strong>
-                                            {% endif %}
-                                        </i>
-                                    </td>
+                                    <th width="30px">#</th>
+                                    <th class="text-center" width="40px">Type</th>
+                                    <th>Last run</th>
+                                    <th>Time</th>
+                                    <th class="text-center">Rows</th>
+                                    <th class="text-right" width="170px">Actions</th>
                                 </tr>
-                                {% if itm2.getLogs() %}
-                                    {% for itm3 in itm2.getLogs() %}
-                                        <tr {% if itm3.errors %}class="red"{% endif %} >
-                                            <td class="text-center">
-                                                {% if itm3.runType == 'user' %}
-                                                    <span class="glyphicon glyphicon-user" title="Run by user"></span>
-                                                {% else %}
-                                                    <span class="glyphicon glyphicon-time" title="Run by cron"></span>
+                                </thead>
+                                <tbody>
+                                {% for index, log in itm.getLatestLog(3) %}
+                                    <tr>
+                                        <td><b>{{ index+1 }}</b></td>
+                                        <td class="text-center">
+                                            {% if log.runType == 'user' %}
+                                                <span class="glyphicon glyphicon-user" title="Executed by user"></span>
+                                            {% else %}
+                                                <span class="glyphicon glyphicon-time" title="Executed by cron"></span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ utility.formatDate(log.startTime) }}</td>
+                                        <td>{{ log.totalTime }} sec</td>
+                                        {% if log.errors %}
+                                            <td class="text-center"> - </td>
+                                            <td class="lightgray text-right">
+                                                <span class="red" title="{{ log.errors }}"><span class="glyphicon glyphicon-warning-sign" ></span> Error!</span>
+                                                {% if userRole == 'master' %}
+                                                    | <a href="{{ url('report/deleteLog', ['id': log.getId()]) }}" title="Delete" class="red runModal" title="Remove"><span class="glyphicon glyphicon-remove"></span></a>
                                                 {% endif %}
                                             </td>
-                                            <td class="text-center">{{ utility.formatDate(itm3.startTime) }}</td>
-                                            <td class="text-center">{{ itm3.totalTime }} sec</td>
-                                            {% if itm3.errors %}
-                                                <td class="text-center" colspan="2"><span class=" glyphicon glyphicon-warning-sign" title="{{ itm3.errors }}"></span> Error</td>
-                                            {% else %}
-                                                <td class="text-center">{{ itm3.rows }} rows</td>
-                                                <td class="text-center"><a href="{{ utility.getFile(itm3.fileLocation) }}" target="_blank" title="Download"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(itm3.fileSize) }}</a></td>
-                                            {% endif %}
-                                        </tr>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr><td colspan="5" class="text-center" >No reports generated. {% if authenticatedUser.hasPermission(itm2, 'run') %}Generate here: <a href="{{ url('report/runModal', ['id': itm2.getId()]) }}" class="btn btn-success btn-xs runModal"><span class="glyphicon glyphicon-play"></span> Run</a>{% endif %} </td></tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </li>
+                                        {% else %}
+                                            <td align="center">{{ log.rows }}</td>
+                                            <td class="lightgray text-right">
+                                                <a class="orange" href="{{ utility.getFile(log.fileLocation) }}"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(log.fileSize) }}</a>
+                                                | <a class="runModal" href="{{ url('report/viewModal', ['id': log.getId()]) }}" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                {% if userRole == 'master' %}
+                                                    | <a href="{{ url('report/deleteLog', ['id': log.getId()]) }}" title="Delete" class="red runModal" title="Remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="view-more"><a href="{{ url('report/fullLogModal', ['id': itm.getId()]) }}" class="runModal" title="View more ..."><span class="glyphicon glyphicon-option-horizontal"></span></a></div>
                     {% endif %}
-                {% endfor %}
-            </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if dbm.getReports()|length < 1 %}
+            <li class="first-report"><a href="{{ url('report/new', ['db': dbm.getId()]) }}" title="Create report"><span class="glyphicon glyphicon-plus" style="color: orange"></span> No reports added! Click here to add first report.</a></li>
         {% endif %}
-    </li>
-    {% endif %}
-{% endfor %}
-</ul>
-{% else %}
-    <h3 class="red">Not reports available!</h3>
-{% endif %}
-<script>
-    var hideTree = [];
-    $('.runModal').click(function(e){
-        $.get($(this).attr('href'), function(data){
-            $('#loadModal').empty().html(data);
+    </ul>
+    <script>
+        $(function(){
+            //launch modal
+            $('.runModal').click(function(e){
+                $.get($(this).attr('href'), function(data){
+                    $('#loadModal').empty().html(data);
+                });
+                e.preventDefault();
+            });
         });
-        e.preventDefault();
-    });
+    </script>
+</div>
 
-    $('.hide-tree').click(function(){
-        var objC = $('.' + $(this).attr('id')+'c');
-        if(objC.is(":visible")) {
-            $(this).find('.glyphicon').removeClass('glyphicon-minus-sign').addClass('glyphicon-plus-sign').attr('title', 'Expand');
-            objC.hide();
-        }else{
-            $(this).find('.glyphicon').removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign').attr('title', 'Collapse');
-            objC.show();
-        }
-        return false;
-    });
-
-    $('#collapse-all, #expand-all').click(function(){
-        if($(this).attr('id') == 'collapse-all'){
-            $('.hide-tree .glyphicon').removeClass('glyphicon-minus-sign').addClass('glyphicon-plus-sign').attr('title', 'Expand');
-            $('.hide-tree-itm').hide();
-        }else{
-            $('.hide-tree .glyphicon').removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign').attr('title', 'Collapse');
-            $('.hide-tree-itm').show();
-        }
-        return false;
-    });
-</script>

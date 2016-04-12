@@ -3,18 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-trash"></span> Are you sure you want to delete report?</h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-trash"></span> Are you sure you want to delete executed log?</h4>
             </div>
-            {{ form(url('report/delete', ['id': report.getId()]), "method":"post", "autocomplete" : "off") }}
+            {{ form(url('report/deleteLog', ['id': log.getId()]), "method":"post", "autocomplete" : "off") }}
             <div class="modal-body">
                 <div>
-                    <i>Report:</i> <strong>{{ report.name }}</strong><br/>
-                    <i>Database:</i> {{ report.getDb().name }}
-                </div>
-                <div class="sqlError">
-                    <strong>Attention:</strong><br/>
-                    Generated report data will also be deleted.<br/>
-                    Operation can't be undone!
+                    <i>Log:</i> <strong>{{ utility.formatDate(log.startTime) }} <i>({{ log.totalTime }} sec execution time)</i> by {% if log.runType == 'user' %}<span class="glyphicon glyphicon-user" title="User"></span>{% else %}<span class="glyphicon glyphicon-time" title="Cron job"></span>{% endif %}</strong><br/>
+                    <i>Report:</i> {{ log.getReport().name }}<br/>
+                    <i>Database:</i> {{ log.getReport().getDb().name }}
                 </div>
             </div>
             <div class="modal-footer">

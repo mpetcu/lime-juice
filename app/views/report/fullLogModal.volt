@@ -3,32 +3,47 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-folder-open"></span> &nbsp; Logs for <strong>{{ report.getDb().name }}/{{ report.name }}</strong></h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-folder-open"></span> &nbsp; Logs for <strong>{{ report.name }}</strong></h4>
             </div>
-            <div class="modal-body" style="">
-                <table class="table table-striped">
+            <div class="modal-body log">
+                <table cellpadding="5" width="100%" class="table table-striped table-condensed">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Last run</th>
-                            <th>Execution time</th>
-                            <th colspan="2">Rows/Return</th>
-                        </tr>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-center" width="50px">Type</th>
+                        <th>Last run</th>
+                        <th>Time</th>
+                        <th class="text-center">Rows</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    {% for index, itm in  report.getLogs() %}
+                    {% for index, log in report.getLogs() %}
                         <tr>
-                            <td>{{ index+1 }}</td>
-                            <td>{% if itm.startTime %}{{ utility.formatDate(itm.startTime) }}{% endif %}</td>
-                            <td>{% if itm.totalTime %}{{ itm.totalTime }}{% endif %} sec</td>
-                            <td {% if itm.errors %} colspan="2"{% endif %}>
-                                {% if itm.errors %}
-                                    <small style="color: red">{{ itm.errors }}</small>
+                            <td><b>{{ index+1 }}</b></td>
+                            <td class="text-center">
+                                {% if log.runType == 'user' %}
+                                    <span class="glyphicon glyphicon-user" title="Executed by user"></span>
                                 {% else %}
-                                    {% if itm.rows is defined %}{{ itm.rows }} rows{% endif %}
-                                    </td><td>File generated: <a href="{{ utility.getFile(itm.fileLocation) }}"><b>Download ({{ utility.formatBytes(itm.fileSize) }})</b></a>
+                                    <span class="glyphicon glyphicon-time" title="Executed by cron"></span>
                                 {% endif %}
                             </td>
+                            <td>{{ utility.formatDate(log.startTime) }}</td>
+                            <td>{{ log.totalTime }} sec</td>
+                            {% if log.errors %}
+                                <td align="center"> - </td>
+                                <td align="right" style="color: lightgray;">
+                                    <span class="red" title="{{ log.errors }}"><span class="glyphicon glyphicon-warning-sign" ></span> Error!</span>
+                                    | <a href="{{ url('report/deleteLog', ['id': log.getId()]) }}" title="Delete" class="red runModal" title="Remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            {% else %}
+                                <td align="center">{{ log.rows }}</td>
+                                <td style="color: lightgray;" width="170px" align="right">
+                                    <a class="orange" href="{{ utility.getFile(log.fileLocation) }}"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(log.fileSize) }}</a>
+                                    | <a class="runModal" href="{{ url('report/viewModal', ['id': log.getId()]) }}" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    | <a href="{{ url('report/deleteLog', ['id': log.getId()]) }}" title="Delete" class="red runModal" title="Remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

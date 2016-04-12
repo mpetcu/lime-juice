@@ -6,7 +6,7 @@
 #wrapper a{cursor: pointer}
 #wrapper div.spacer {height: 30px}
 #wrapper h1.head {border-bottom: 3px solid orange; margin: 0 0 20px 0; padding: 0 0 5px 0; }
-#wrapper h1.head a.btn {margin-left: 5px; font-size: 0.4em}
+#wrapper h1.head a.btn {margin-left: 5px; font-size: 0.44em}
 #wrapper .info {font-style: italic; color: #777; font-size: 0.9em}
 #wrapper div.sqlError {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: red; background-color: #FFA}
 #wrapper .console {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: #444; background-color: #EEE}
@@ -19,9 +19,9 @@
 .lightgray{color:#AAA}
 .black{color:black}
 .orange{color:orange}
-.h1, h1{font-size: 30px;text-decoration:none !important; color:#333}
-.h2, h2{font-size: 26px;text-decoration:none !important; color:#333}
-.h3, h3{font-size: 20px;text-decoration:none !important; color:#333}
+.h1, h1{font-size: 26px;text-decoration:none !important; color:#333}
+.h2, h2{font-size: 24px;text-decoration:none !important; color:#333}
+.h3, h3{font-size: 18px;text-decoration:none !important; color:#333}
 
 /* Form */
 form{padding:0;margin:0}
@@ -29,7 +29,7 @@ form ul{padding:0;margin:0; list-style-type: none; list-style-position: inside}
 form input:not(.btn):not(.default):not([type='checkbox']), form select, form textarea{padding: 5px; font-size: 1.2em; color: black; min-width: 250px; border: 1px solid #AAA; background-color: #FFFFCC; box-shadow: 0px 0px 2px rgba(0,0,0,0.15);}
 form input:not(.btn):focus, form select:focus, form textarea:focus{ border-color: #558ABB; background-color: #FFF; color: #000; box-shadow: 0px 0px 5px rgba(85,138,187,0.3)}
 form textarea{min-height: 150px; width: 65vw; font-family: "Courier New"; }
-form ul li label:not(.default){width: 110px; display: inline-block; text-align: right; font-weight: normal; margin-right: 15px; top: 7px; float: left}
+form ul li label:not(.default){width: 110px; display: inline-block; text-align: right; font-weight: normal; margin-right: 15px; padding-top: 7px; float: left}
 form ul li label.default{font-weight: normal}
 form ul li label.icon{font-size: 1.6em; top: -3px; line-height: 40px}
 form ul li div.msg{display:inline; font-size: 0.9em }
@@ -47,12 +47,16 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
 #wrapper ul.reports li.first-report a:hover{border-color: #888}
 #wrapper ul.reports li.red {border-left-color: red;}
 #wrapper ul.reports li.green {border-left-color: green;}
-#wrapper ul.reports li a.title {color: #333; font-size: 1.3em}
-#wrapper ul.reports li a.btn, .btn-mrg-left{margin-left: 5px;}
-#wrapper ul.reports li .log {font-size: 0.9em; font-family: "Courier New"; color: #333; padding: 5px 10px; margin-top: 10px; background-color: #FFF; border: 1px solid #CCC}
+#wrapper ul.reports li h2.title{color: #333; font-size: 1.5em; display: inline}
+#wrapper ul.reports li a.btn, .btn-mrg-left{margin-left:5px; padding: 4px 10px 8px}
+.log {font-size: 0.9em; font-family: "Courier New"; margin-top: 10px; background-color: #FFF}
+.log table {margin-bottom: 0}
+.log table td, .log table th {font-size:0.8em;font-family:"Courier New";padding:4px 10px !important}
+.log table th {font-weight: bold}
+#wrapper ul.reports li .view-more {text-align: center; cursor:pointer; font-size:1.5em; margin-bottom: -15px}
 #wrapper ul.reports span.error {color: #C1445C;}
 
-/* report/index page */
+/* report/index page * /
 #wrapper ul.files, #wrapper ul.files > li > ul {list-style-type: none; list-style-position: inside; padding:0 0 10px;margin:0;}
 #wrapper ul.files a {color:#333; text-decoration: none}
 #wrapper ul.files a:hover {color:#000;}
@@ -63,6 +67,7 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
 #wrapper ul.files > li > ul > li > a{font-size:1.4em}
 #wrapper ul.files > li > ul > li > table, #wrapper .table-users {font-size:1em;min-width:480px;width:85vw;max-width:1200px;background-color:#FFF}
 #wrapper ul.files > li > ul > li .btn-success {color: #FFF}
+/**/
 
 #wrapper div.bitm {width: calc(100vw/5); float: left;}
 #wrapper div.bitm > a.cnt.small, #wrapper div.bitm > a.add.small{height: 180px}
@@ -78,12 +83,12 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
 #wrapper div.bitm > a.cnt p{color: #666}
 #wrapper div.bitm > a.cnt p.console{background-color: #FFF; text-align: left}
 #wrapper div.bitm > div {position:relative;right:25px;top:-25px;margin-top:-30px; }
-@media(max-width:640px){#wrapper div.bitm {width: 100%}}
-@media(min-width: 641px) {#wrapper div.bitm {width: 50%}}
-@media(min-width: 1001px) {#wrapper div.bitm {width: 33.33%}}
-@media(min-width: 1201px) {#wrapper div.bitm {width: 25%}}
-@media(min-width: 1601px) {#wrapper div.bitm {width: 20%}}
-@media(min-width: 1801px) {#wrapper div.bitm {width: 310px}}
+@media(max-width: 640px){#wrapper div.bitm {width: 100%}}
+@media(min-width: 641px) {#wrapper div.bitm {width: 33%}}
+@media(min-width: 1001px) {#wrapper div.bitm {width: 25%}}
+@media(min-width: 1201px) {#wrapper div.bitm {width: 20%}}
+@media(min-width: 1601px) {#wrapper div.bitm {width: 16.66%}}
+@media(min-width: 1801px) {#wrapper div.bitm {width: 200px}}
 
 /* full logs modal */
 #wrapper #logsModal .modal-body {max-height: calc(100vh - 210px);overflow-y: auto;}
@@ -101,25 +106,33 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;}
 /* Sidebar */
-.sidebar-nav {width: 260px;margin:0;padding:0;list-style:none; text-align: left; margin-bottom: 20px}
-.sidebar-nav li {text-indent: 20px;line-height:40px; border-bottom:2px solid #FFF; }
+.sidebar-nav {width: 330px;margin:0;padding:0;list-style:none; text-align: left; margin-bottom: 20px}
+.sidebar-nav li {text-indent: 20px;line-height:40px; border-bottom:1px dashed #777; }
 .sidebar-nav li a span {text-indent: 0px; margin-top: 11px; margin-right: 11px}
 .sidebar-nav li a {display: block;text-decoration: none; color:#555;}
-.sidebar-nav li a:hover {text-decoration: none;color: #fff;background-color:#999;}
-.sidebar-nav li a.sel {text-decoration: none;color: #fff;background-color:#777;}
+.sidebar-nav li a:hover {text-decoration: none;color: #000; background-color:#D5D5D5;}
+.sidebar-nav li a.sel {text-decoration: none;color: #333;background-color:#D1D1D1;}
 .sidebar-nav li a:hover span, .sidebar-nav li a.sel span {text-decoration: none;color: #777;background-color:#fff;}
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {text-decoration: none;}
-.sidebar-nav > .sidebar-brand {height: 70px; font-size: 1.6em; line-height: 70px; }
-.sidebar-nav > .sidebar-brand a span {text-indent:20px;margin:0;}
+.sidebar-nav > .sidebar-brand {height: 70px; font-size: 1.6em; line-height: 70px; padding-left:40px}
+.sidebar-nav > .sidebar-brand a span {text-indent:60px;margin:0;}
 .sidebar-nav > .sidebar-brand a:hover, .sidebar-nav > .sidebar-brand a:active, .sidebar-nav > .sidebar-brand a:hover span{background-color: inherit; color: inherit}
-@media(min-width:768px) {
-    .c2 {padding-left: 260px;}
+.modal-lg-max {width: 96% !important}
+
+/*view log modal*/
+table.viewLog {	border-collapse: collapse; font-size: 0.8em}
+table.viewLog, table.viewLog td, table.viewLog th {	border: 1px solid #CCC; padding: 2px 5px;}
+table.viewLog th {color: #FFA500; background-color: #000; padding: 5px; border-bottom: 2px solid #FFA500}
+
+@media(min-width: 920px) {
+    .c2 {padding-left: 330px;}
     .c2.toggled {padding-left: 0;}
-    #sidebar-wrapper {width: 260px; text-align: center}}
+    #sidebar-wrapper {width: 330px; text-align: center}}
     .c2.toggled #sidebar-wrapper {width: 0;}
     #pg-wrapper {padding: 20px;position: relative;}
     .c2.toggled #pg-wrapper {position: relative;margin-right: 0}
 }
+
 
 

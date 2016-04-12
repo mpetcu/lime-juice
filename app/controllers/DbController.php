@@ -18,17 +18,13 @@ class DbController extends ControllerBase
      */
     public function indexAction()
     {
+        $user = User::findById($this->session->get("user-data")->getId());
+        if($user->getConfig('db') && !($this->request->get('force'))){
+            $db = Db::findById($user->getConfig('db'));
+            return $this->response->redirect('report/index?id='.$db->getId());
+        }
         $this->view->dbsl = $this->view->dbs;
         $this->view->dbs = false;
-    }
-
-    /**
-     * Show a specific databases with reports
-     */
-    public function showAction()
-    {
-        $this->view->dbm = Db::findById($this->request->get('id'));
-        $this->view->refreshTime = 1000*60;
     }
 
     /**

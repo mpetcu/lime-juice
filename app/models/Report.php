@@ -111,8 +111,11 @@ class Report extends \Phalcon\Mvc\Collection
      * Get latest log
      * @return mixed
      */
-    public function getLatestLog(){
-        return Log::findFirst(['conditions' => ['rid' => $this->getId()], 'sort' => ['_id' => -1]]);
+    public function getLatestLog($num = 1){
+        if($num == 1)
+            return Log::findFirst(['conditions' => ['rid' => $this->getId()], 'sort' => ['_id' => -1]]);
+        else
+            return Log::find(['conditions' => ['rid' => $this->getId()], 'sort' => ['_id' => -1], 'limit' => $num]);
     }
 
     public function getLogs($limit = 100){

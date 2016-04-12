@@ -1,4 +1,5 @@
-<h1 class="head"><span class="glyphicon glyphicon-tags"></span> &nbsp;Database connections ({{ dbsl|length }})</h1>
+<h1 class="head"><span class="glyphicon glyphicon-tags"></span> &nbsp;Databases ({{ dbsl|length }})</h1>
+<p><i>Pick a database connection from the list below or create a new connection!</i></p>
 {% for itm in dbsl %}
     <div class="bitm">
         <a href="{{ url("db/show", ["id" : itm.getId()]) }}" class="cnt small">
@@ -12,10 +13,10 @@
     </div>
 {% endfor %}
 <div class="bitm">
-    <a href="{{ url("db/new") }}" class="add small">
+    <a href="{{ url("db/new") }}" class="add small" title="New connection">
         <h2>
             <span class="glyphicon glyphicon-plus"></span><br/><br/>
-            Add database<br/>connection<br/>
+            New database<br/>connection<br/>
         </h2>
     </a>
 </div>
