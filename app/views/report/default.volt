@@ -2,7 +2,7 @@
 <p><i>Pick a database connection from the list below or create a new connection!</i></p>
 {% for itm in dbsl %}
     <div class="bitm">
-        <a href="{{ url("db/show", ["id" : itm.getId()]) }}" class="cnt small">
+        <a href="{{ url("report/index", ["id" : itm.getId()]) }}" class="cnt small">
             <h2><span class="glyphicon glyphicon-tag"></span> {{ itm.name }}</h2>
             <p><b class="orange">{{ itm.getAdapter()|upper }}</b> | {{ itm.countReports() }} reports</p>
         </a>
