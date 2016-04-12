@@ -29,7 +29,7 @@ class ReportController extends ControllerBase
             $db = Db::findById($this->request->get('id'));
             $user->setConfig('db', $db->getId());
         }
-        if($user->getConfig('db') && !($this->request->get('force'))){
+        if($user->getConfig('db')){
             $db = isset($db)?$db:(Db::findById($user->getConfig('db')));
             if(!$this->request->get('id')){
                 return $this->response->redirect('report/index?id='.$db->getId());
@@ -51,6 +51,7 @@ class ReportController extends ControllerBase
             $this->flash->success("Report <strong>".$this->request->get('name')."</strong> was created succesfully.");
             return $this->response->redirect('report/index?id='.$db->getId());
         }
+        $this->view->currentDbId = $db->getId();
         $this->view->dbm = $db;
     }
 
@@ -64,6 +65,7 @@ class ReportController extends ControllerBase
             $this->flash->success("Report <strong>".$this->request->get('name')."</strong> was changed succesfully.");
             return $this->response->redirect('report/index?id='.$report->getDb()->getId());
         }
+        $this->view->currentDbId = $report->getDb()->getId();
         $this->view->report = $report;
     }
 
