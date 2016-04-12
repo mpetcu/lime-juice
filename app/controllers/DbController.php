@@ -14,20 +14,6 @@ class DbController extends ControllerBase
     }
 
     /**
-     * List all databases
-     */
-    public function indexAction()
-    {
-        $user = User::findById($this->session->get("user-data")->getId());
-        if($user->getConfig('db') && !($this->request->get('force'))){
-            $db = Db::findById($user->getConfig('db'));
-            return $this->response->redirect('report/index?id='.$db->getId());
-        }
-        $this->view->dbsl = $this->view->dbs;
-        $this->view->dbs = false;
-    }
-
-    /**
      * Add new database
      * @return mixed
      */
@@ -35,7 +21,7 @@ class DbController extends ControllerBase
         $db = new Db();
         if($this->processForm($db, 'DbForm')){
             $this->flash->success("Database connection <b>".$this->request->get('name')."</b> was succesfully created.");
-            return $this->response->redirect('db/index');
+            return $this->response->redirect('report/index');
         }
     }
 
@@ -43,7 +29,7 @@ class DbController extends ControllerBase
         $db = Db::findById($this->request->get('id'));
         if($this->processForm($db, 'DbForm')){
             $this->flash->success("Database connection <b>".$this->request->get('name')."</b> was succesfully changed.");
-            return $this->response->redirect('db/show?id='.$db->getId());
+            return $this->response->redirect('report/index?id='.$db->getId());
         }
         $this->view->dbm = $db;
     }
@@ -58,9 +44,9 @@ class DbController extends ControllerBase
             $dbname = $db->name;
             if ($db->delete()) {
                 $this->flash->success("Database connection <b>" . $dbname . "</b> was succesfully removed.");
-                return $this->response->redirect('db/index');
+                return $this->response->redirect('report/index');
             }
-            return $this->response->redirect('db/show?id=' . $this->request->get('id'));
+            return $this->response->redirect('report/index?id=' . $this->request->get('id'));
         }
         $this->view->dbm = $db;
     }
