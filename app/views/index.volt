@@ -9,7 +9,7 @@
 		<script src="/js/jquery.min.js"></script>
 
 		<!-- Bootstrap 3.3.5 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css{#/css/bootstrap.min.css#}"/
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/css/bootstrap-social.min.css"/>
 		<link rel="stylesheet" href="/css/font-awesome.min.css"/>
 		<script src="/js/bootstrap.min.js"></script>
