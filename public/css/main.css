@@ -8,7 +8,7 @@
 #wrapper h1.head {border-bottom: 3px solid orange; margin: 0 0 20px 0; padding: 0 0 5px 0; }
 #wrapper h1.head a.btn {margin-left: 5px; font-size: 0.44em}
 #wrapper .info {font-style: italic; color: #777; font-size: 0.9em}
-#wrapper div.notifBox {padding: 5px 10px; background-color: #dddddd; color: #333; font-size: 1.2em}
+#wrapper div.notifBox {padding: 5px 10px; background-color: #ffa; color: #333; font-size: 1.2em}
 #wrapper div.sqlError {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: red; background-color: #FFA}
 #wrapper .console {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: #444; background-color: #EEE}
 #wrapper .btn:hover{transform: scale(1.05)}

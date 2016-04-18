@@ -176,29 +176,41 @@ class Report extends \Phalcon\Mvc\Collection
      * @return bool|string
      */
     public function sendNotif(){
-        $mail = \Phalcon\DI\FactoryDefault::getDefault()->get('mail');
-        $url = \Phalcon\DI\FactoryDefault::getDefault()->get('url');
-        $utility = \Phalcon\DI\FactoryDefault::getDefault()->get('utility');
+        $notifUids = $this->getNotif();
 
-        //$mail->addAddress(''); //todo here
+        if($notifUids) {
+            $mail = \Phalcon\DI\FactoryDefault::getDefault()->get('mail');
+            $url = \Phalcon\DI\FactoryDefault::getDefault()->get('url');
+            $utility = \Phalcon\DI\FactoryDefault::getDefault()->get('utility');
 
-        if($this->getLatestLog()['errors']){
-            $mail->Subject = 'Report ERROR ' . $this->getDb()->name . '/' . $this->name . ' (' . $this->getLatestLog()['startTime'] . ')';
-            $mail->Body = '<big>A new report for <a href="' . $url->get('db/show', ['id' => $this->getDb()->getId()]) . '" target="_blank" ><b>' . $this->getDb()->name . '/' . $this->name . '</b></a> was generated</big><br/><br/><i>' .
-                '<span style="color: red">Error: ' . $this->getLatestLog()['errors'] . '</span><br/>';
-        }else {
-            $mail->Subject = 'Report ' . $this->getDb()->name . '/' . $this->name . ' (' . $this->getLatestLog()['startTime'] . ')';
-            $mail->Body = '<big>A new report for <a href="' . $url->get('db/show', ['id' => $this->getDb()->getId()]) . '" target="_blank" ><b>' . $this->getDb()->name . '/' . $this->name . '</b></a> was generated</big><br/><br/><i>' .
-                'Rows: ' . $this->getLatestLog()['rows'] . '<br/>' .
-                'Time: ' . $this->getLatestLog()['totalTime'] . '<br/>' .
-                'File size: ' . $utility->formatBytes($this->getLatestLog()['fileSize']) . '</i><br/><br/>' .
-                '<b>Download here: <a href="' . $url->get('') . $this->getLatestLog()['fileLocation'] . '" target="_blank" style="color: orange ">' . $url->get('') . $this->getLatestLog()['fileLocation'] . '</a></b>';
+            //$users = User::find(['conditions' => ['_id' => ['$in' => $notifUids]]]);
+            $users = User::find();
+
+            if(count($users)) {
+                foreach ($users as $user) {
+                    $mail->addAddress($user->email);
+                }
+                $log = $this->getLatestLog(1);
+                if ($log->errors) {
+                    return false;
+                } else {
+                    $mail->Subject = 'Report executed [Report manager]';
+                    $mail->Body = 'A new report was generated<br/><br/>' .
+                        'Report: <strong><a href="' . $url->get('report/index', ['id' => $this->getDb()->getId()]) . '#' .$this->getId().'" target="_blank" >' . $this->name . '<br/></strong>' .
+                        'Database: <strong><a href="' . $url->get('report/index', ['id' => $this->getDb()->getId()]) . '" target="_blank" >' . $this->getDb()->name . '<br/></strong>' .
+                        'Executed at: ' . $utility->formatDate($log->startTime ) . '<br/>' .
+                        'Rows: ' . $log->rows . '<br/>' .
+                        'Duration: ' . $log->totalTime . ' sec<br/>' .
+                        'File size: ' . $utility->formatBytes($log->fileSize) . '</i><br/><br/>' .
+                        'Download here: <a href="' . $url->get('') . $log->fileLocation . '" target="_blank" style="color: orange ">' . $url->get('') . $log->fileLocation . '</a>';
+                }
+                $mail->AltBody = strip_tags($mail->Body);
+                if ($mail->send())
+                    return true;
+                else
+                    return 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+            }
         }
-        $mail->AltBody = strip_tags($mail->Body);
-        if($mail->send())
-            return true;
-        else
-            return 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
     }
 
     /**

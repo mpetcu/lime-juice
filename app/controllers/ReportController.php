@@ -111,7 +111,7 @@ class ReportController extends ControllerBase
         $report->save();
 
         //send mail
-        //$report->sendNotif();
+        $report->sendNotif();
 
         $this->view->lastRun = true;
         $this->view->report = $report;
