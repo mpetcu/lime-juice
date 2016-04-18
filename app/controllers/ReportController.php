@@ -16,7 +16,7 @@ class ReportController extends ControllerBase
             $this->view->dbsl = $this->view->dbs;
             $this->view->dbs = false;
         }else{
-
+            //TODO My latest notifications
         }
     }
 
@@ -133,9 +133,18 @@ class ReportController extends ControllerBase
      */
     public function msgModalAction(){
         $report = Report::findById($this->request->get('id'));
-        if($this->processForm($report, 'MailReportForm')){
-            $this->flash->success("Saved succesfully.");
-            return $this->response->redirect('report/msgModal?id='.$report->getId());
+        if($this->request->isPost()){
+            $notif = $this->request->getPost('notif');
+            $user = $this->getUserSession();
+            if($notif == 'yes'){
+                $report->setNotif($user->getId());
+            }
+            if($notif == 'no'){
+                $report->unsetNotif($user->getId());
+            }
+            $this->view->change = true;
+            $report->save();
+
         }
         $this->view->report = $report;
     }
@@ -170,7 +179,6 @@ class ReportController extends ControllerBase
         $absPath = $this->getDI()->get('config')->application->publicDir;
         $log = Log::findById($this->request->get('id'));
         $this->view->log = $log;
-        //Excel
         try{
             $inFt = PHPExcel_IOFactory::identify($absPath.$log->fileLocation);
             $objReader = PHPExcel_IOFactory::createReader($inFt);
@@ -185,7 +193,6 @@ class ReportController extends ControllerBase
             $this->view->logDataArr = $data;
         } catch(Exception $e){}
 
-        //CSV
     }
 
 }

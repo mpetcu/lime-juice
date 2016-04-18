@@ -13,6 +13,7 @@ class Report extends \Phalcon\Mvc\Collection
     public $logCount;
     public $status;
     public $format;
+    public $notif;
 
     public function getSource(){
         return "report";
@@ -20,6 +21,30 @@ class Report extends \Phalcon\Mvc\Collection
 
     public function getId(){
         return $this->_id->{'$id'};
+    }
+
+    /**
+     * Return notif array
+     */
+    public function getNotif($uid = null){
+        if($uid !== null){
+            if(isset($this->notif) && in_array($uid, $this->notif)){
+                return array_intersect($this->notif, [$uid]);
+            }
+            return [];
+        }
+        return isset($this->notif)?$this->notif:[];
+    }
+
+
+    public function setNotif($uid){
+        $this->notif[] = $uid;
+        return $this->notif;
+    }
+
+    public function unsetNotif($uid){
+        $this->notif = array_diff($this->notif, $uid);
+        return $this->notif;
     }
 
     public function beforeCreate(){
