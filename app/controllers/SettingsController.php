@@ -163,6 +163,9 @@ class SettingsController extends ControllerBase
         $this->view->disable();
     }
 
+    /**
+     * Manage permission for an defined user
+     */
     public function permissionModalAction(){
         $db = Db::find();
         $user = User::findById($this->request->get('id'));
@@ -170,17 +173,50 @@ class SettingsController extends ControllerBase
         $this->view->user = $user;
     }
 
+    /**
+     * Manage permission for an defined report
+     */
+    public function permissionUserModalAction(){
+        $users = User::find(['conditions' => ['type' => 'operator']]);
+        $report = Report::findById($this->request->get('id'));
+        $this->view->report = $report;
+        $this->view->users = $users;
+    }
+
+    /**
+     * Change and assign permision for a report of for an user
+     * Will always return integer "1"
+     */
     public function changePermissionAction(){
-        $user = User::findById($this->request->get('id'));
-        $user->removePermissions();
-        if($perm = $this->request->get('perm')) {
-            foreach ($perm as $key => $val) {
-                foreach ($val as $key2 => $val2) {
-                    $user->setPermission($key, $key2, $val2);
+
+        //case of permission per report
+        if( $this->request->get('report') ){
+            $report = Report::findById($this->request->get('report'));
+            $users = User::find(['conditions' => ['type' => 'operator']]);
+            $perm = $this->request->get('perm');
+            foreach($users as $user){
+                if(isset($perm[$user->getId()]) && in_array('view', $perm[$user->getId()])){
+                    $user->setPermission('Report', $report->getId(), $perm[$user->getId()]);
+                }else{
+                    $user->unsetPermission('Report', $report->getId(), $perm[$user->getId()]);
                 }
+                $user->save();
             }
         }
-        $user->save();
+
+        //case of permission per user
+        if( $this->request->get('user') ) {
+            $user = User::findById($this->request->get('user'));
+            $user->removePermissions();
+            if ($perm = $this->request->get('perm')) {
+                foreach ($perm as $key => $val) {
+                    $user->setPermission('Report', $key, $val);
+                }
+            }
+            $user->save();
+        }
+
+
         echo 1;
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }

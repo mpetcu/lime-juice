@@ -50,6 +50,13 @@ class User extends \Phalcon\Mvc\Collection
 
     public function setPermission($model, $id, $type){
         $this->to[sha1($model.$id)] = ['model' => $model, 'id' => $id, 'type' => $type];
+        return $this;
+    }
+
+    public function unsetPermission($model, $id){
+        if(isset($this->to[sha1($model.$id)]))
+            unset($this->to[sha1($model.$id)]);
+        return $this;
     }
 
     public function getObjectPermissions($obj){
@@ -71,6 +78,17 @@ class User extends \Phalcon\Mvc\Collection
             return true;
         }
         $model = get_class($obj);
+
+        //if $model is "Db"
+        if($model == 'Db'){
+            $reports = $obj->getReports();
+            foreach($reports as $itm){
+                if(isset($this->to[sha1(get_class($itm).$itm->getId())]) && in_array($type, $this->to[sha1(get_class($itm).$itm->getId())]['type']))
+                    return true;
+            }
+            return false;
+        }
+
         $id = $obj->getId();
         if(isset($this->to[sha1($model.$id)])){
             if(in_array($type, $this->to[sha1($model.$id)]['type']))

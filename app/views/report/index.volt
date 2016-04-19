@@ -14,6 +14,7 @@
                     {% if userRole == 'master' %}
                         <a href="{{ url('report/delete', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-danger pull-right runModal"><span class="glyphicon glyphicon-trash"></span></a>
                         <a href="{{ url('report/edit', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ url('settings/permissionUserModal', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-user"></span></a>
                         <a href="{{ url('report/jobModal', ['id': itm.getId()]) }}" title="Cron job" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-time"></span></a>
                     {% else %}
                         <a href="{{ url('report/msgModal', ['id': itm.getId()]) }}" title="Notifications" class="btn btn-sm btn-default pull-right runModal"><span class="glyphicon glyphicon-envelope"></span></a>
@@ -21,9 +22,19 @@
                     {% if authenticatedUser.hasPermission(itm, 'run') %}
                         <a href="{{ url('report/runModal', ['id': itm.getId()]) }}" title="Run now" class="btn btn-sm btn-success pull-right runModal"><span class="glyphicon glyphicon-play"></span></a>
                     {% endif %}
-                    <div style="font-size: 0.85em; color: #555; padding-top: 5px; font-style: italic">
-                        {% if date('Y-m-d H:i:s') < itm.getJob().getNextRun() %}<span class="glyphicon glyphicon-time"></span> {{utility.formatDate(itm.getJob().getNextRun())}}<br/>{% endif %}
-                        {% if userRole == 'master' %}<span class="glyphicon glyphicon-user"></span> Petcu Mihai; <br/></b>{% endif %}
+                    <div class="data">
+                        {% if date('Y-m-d H:i:s') < itm.getJob().getNextRun() and itm.getJob().status %}<span class="glyphicon glyphicon-time"></span> Next run: {{ utility.formatDate(itm.getJob().getNextRun()) }}<br/>{% endif %}
+                        {% if userRole == 'operator' %}<span class="glyphicon glyphicon-envelope"></span> Email notification active.<br/>{% endif %}
+                        {% if userRole == 'master' and users is defined %}<span class="glyphicon glyphicon-user"></span>
+                            {% set userExist = false %}
+                            {% for user in users %}
+                                {% if user.hasPermission(itm, 'view') %}
+                                     {{ user.getName() }};&nbsp;
+                                        {% set userExist = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if userExist == false %}No operator assigned.{% endif %}
+                        {% endif %}
                     </div>
                     {% if itm.getLatestlog()%}
                         <div class="log">
@@ -41,7 +52,7 @@
                                 <tbody>
                                 {% for index, log in itm.getLatestLog(3) %}
                                     <tr>
-                                        <td><b>{{ index+1 }}</b></td>
+                                        <td><b>{{ itm.getLogCount() - index }}</b></td>
                                         <td class="text-center">
                                             {% if log.runType == 'user' %}
                                                 <span class="glyphicon glyphicon-user" title="Executed by user"></span>

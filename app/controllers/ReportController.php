@@ -39,6 +39,11 @@ class ReportController extends ControllerBase
         }else{
             return $this->response->redirect('report/default');
         }
+
+        //if master show users
+        if($this->getUserRole() == 'master'){
+            $this->view->users = User::find(['conditions' => ['type' => 'operator', 'status' => 1]]);
+        }
     }
 
     /**

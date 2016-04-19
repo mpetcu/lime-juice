@@ -1,55 +1,59 @@
 <h1 class="head"><span class="glyphicon glyphicon-cog"></span> Users & permissions</h1>
-<table class="table table-hover table-bordered table-striped table-users">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th class="text-center" width="180px">Last access</th>
-            <th class="text-center" width="85px">Type</th>
-            <th class="text-center" width="270x">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
+<div class="user">
+    <table class="table table-hover table-condensed table-striped table-users">
+        <thead>
             <tr>
-                <td>{% if user.type == 'master' %}<span class="glyphicon glyphicon-king"></span>{% endif %} {% if user.firstName is defined %}{{ user.firstName }}{% endif %} {% if user.lastName is defined  %}{{ user.lastName }}{% endif %}</td>
-                <td>{{ user.email }}</td>
-                <td class="text-center">{% if user.sessionDate %}{{ utility.formatDate(user.sessionDate) }}{% else %}-{% endif %}</td>
-                <td class="text-center">
-                    <div class="dropdown">
-                        <a class="btn btn-xs btn-default dropdown-toggle" type="button" id="dm1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                           <span class="glyphicon glyphicon-user"></span> {{ user.type }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dm1">
-                            {% if user.type == 'master' %}{% set user_type = 'operator' %}{% else %}{% set user_type = 'master' %}{% endif %}
-                            <li><a href="{{ url('settings/changeUserType', ['id':user.getId(),'type':user_type]) }}" class="change-type"><span class="glyphicon glyphicon-user"></span> {{ user_type }}</a></li>
-                        </ul>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <a href="{{ url('settings/changeUserStatus', ['id':user.getId()]) }}" class="btn btn-xs btn-{% if user.status%}success{% else %}danger{% endif %} change-status">
-                        {% if user.status%}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
-                    {% if user.type != 'master' %}
-                        <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
-                    {% endif %}
-                    <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
+                <th>Name/Email</th>
+                <th width="200px">Last access</th>
+                <th width="85px">Type</th>
+                <th width="280x">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        {% if user.type == 'master' %}<span class="glyphicon glyphicon-king"></span>{% endif %}
+                        <strong>{{ user.getName() }}</strong> {% if user.getName() != user.email %}<i>({{ user.email }})</i>{% endif %}
+                    </td>
+                    <td>{% if user.sessionDate %}{{ utility.formatDate(user.sessionDate) }}{% else %}-{% endif %}</td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="btn btn-xs btn-default dropdown-toggle" type="button" id="dm1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                               <span class="glyphicon glyphicon-user"></span> {{ user.type }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dm1">
+                                {% if user.type == 'master' %}{% set user_type = 'operator' %}{% else %}{% set user_type = 'master' %}{% endif %}
+                                <li><a href="{{ url('settings/changeUserType', ['id':user.getId(),'type':user_type]) }}" class="change-type"><span class="glyphicon glyphicon-user"></span> {{ user_type }}</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{{ url('settings/changeUserStatus', ['id':user.getId()]) }}" class="btn btn-xs btn-{% if user.status%}success{% else %}danger{% endif %} change-status">
+                            {% if user.status%}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
+                        {% if user.type != 'master' %}
+                            <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
+                        {% endif %}
+                        <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    {{ form(url('settings/index'), "method":"post", "autocomplete":"off") }}
+                        {{ form.renderErrorsDecorated() }}
+                        {{ form.render('email', ['placeholder':'Email address']) }}
+                        {{ form.render('type', ['style':'min-width:auto']) }}
+                        <button type="submit" class="btn btn-default" style="margin-top: -4px"><span class="glyphicon glyphicon-plus"></span> Add user</button>
+                    </form>
                 </td>
             </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="5">
-                {{ form(url('settings/index'), "method":"post", "autocomplete":"off") }}
-                    {{ form.renderErrorsDecorated() }}
-                    {{ form.render('email', ['placeholder':'Email address']) }}
-                    {{ form.render('type', ['style':'min-width:auto']) }}
-                    <button type="submit" class="btn btn-default" style="margin-top: -4px"><span class="glyphicon glyphicon-plus"></span> Add user</button>
-                </form>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </tfoot>
+    </table>
+</div>
+
 <script>
     $(function(){
 

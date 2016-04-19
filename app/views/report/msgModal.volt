@@ -10,9 +10,9 @@
                     <div class="notifBox">
                         <strong>Note: </strong>
                         {% if report.getNotif(authenticatedUser.getId()) %}
-                            <span class="green">Mail notification is active!</span>
+                            <span class="green">Email notification active.</span>
                         {% else %}
-                            <span class="red">Mail notification is disabled!</span>
+                            <span class="red">Email notification disable.</span>
                         {% endif %}
                     </div><br/>
                     <i>Report:</i> {{ report.name }}<br/>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="modal-footer">
                     {% if change is defined %}
-                        <input type="button" value="Close window" data-dismiss="modal" class="btn btn-warning pull-right" />
+                        <a data-dismiss="modal" class="btn btn-warning pull-right" >Close window</a>
                     {% else %}
                         <input type="button" data-value="yes" value="Yes, I do" class="btn btn-success pull-right" />
                         <input type="button" data-value="no" value="No, I don't" class="btn btn-danger pull-right btn-mrg-right" />

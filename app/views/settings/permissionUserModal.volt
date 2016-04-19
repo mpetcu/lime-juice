@@ -3,34 +3,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-remove-sign"></span> <strong>{{ user.getName() }}</strong> permissions </h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-remove-sign"></span> Manage permissions for <strong>{{ report.name }}</strong>  </h4>
             </div>
-            <form action="{{ url('settings/changePermission', ['user':user.getId()])}}" id="userPermissonsForm">
+            <form action="{{ url('settings/changePermission', ['report':report.getId()])}}" id="userPermissonsForm">
 
                 <div class="modal-body">
                     {{ flash.output()}}
                     <table class="table table-striped permissionsList">
                         <thead>
-                            <tr>
-                                <th>Databases & Reports</th>
-                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-eye-open"></span> View</th>
-                                <th class="text-center" width="70px"><span class="glyphicon glyphicon-play"></span> Run</th>
-                            </tr>
+                        <tr>
+                            <th>Users <i class="gray">({{ users|length }})</i></th>
+                            <th class="text-center" width="70px"><span class="glyphicon glyphicon-eye-open"></span> View</th>
+                            <th class="text-center" width="70px"><span class="glyphicon glyphicon-play"></span> Run</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        {% for itm in dbm %}
-                                <tr style="background-color: #f2eeff">
-                                    <td><span id="{{ itm.getId() }}"  style="cursor: pointer" class="glyphicon orange glyphicon-minus-sign listExpander" title="Collapse" ></span> <b>{{ itm.name }} <i class="gray">({{ itm.getReports()|length }})</i></b></td>
-                                    <td class="text-center"><input type="checkbox" value="view" class="main" id="r-{{ itm.getId() }}" {% if user.hasPermission(itm, 'view') %}checked{% endif %} /></td>
-                                    <td class="text-center"><input type="checkbox" value="run" class="main" id="wr-{{ itm.getId() }}" {% if user.hasPermission(itm, 'run') %}checked{% endif %} disabled /></td>
-                                </tr>
-                                {% for itm2 in itm.getReports() %}
-                                    <tr class="{{ itm.getId() }}">
-                                        <td class="padding-left: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ itm2.name }}</td>
-                                        <td class="text-center"><input type="checkbox" value="view" name="perm[{{ itm2.getId() }}][]" class="r-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'view') %}checked{% endif %} id="r-{{ itm2.getId() }}" /></td>
-                                        <td class="text-center"><input type="checkbox" value="run" name="perm[{{ itm2.getId() }}][]" class="wr-{{ itm.getId() }}" {% if user.hasPermission(itm2, 'run') %}checked{% endif %} id="wr-{{ itm2.getId() }}" disabled /></td>
-                                    </tr>
-                                {% endfor %}
+                        {% for user in users %}
+                            <tr>
+                                <td class="text-left">{{ user.getName() }}</td>
+                                <td class="text-center"><input type="checkbox" value="view" name="perm[{{ user.getId() }}][]" class="main" id="r-{{ user.getId() }}" {% if user.hasPermission(report, 'view') %}checked{% endif %} /></td>
+                                <td class="text-center"><input type="checkbox" value="run" name="perm[{{ user.getId() }}][]" class="main" id="wr-{{ user.getId() }}" {% if user.hasPermission(report, 'run') %}checked{% endif %} disabled /></td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>

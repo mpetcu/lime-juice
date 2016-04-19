@@ -45,18 +45,26 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
 #wrapper ul.reports li{padding: 15px;  display: block; margin-top: 15px; border: 1px solid #E5E5E5; border-left: 5px solid orange; background-color: #EEE}
 #wrapper ul.reports li:hover {transform: scale(1.007); box-shadow: 0 0 20px rgba(0,0,0,0.15); transition: 0.2s ease; background-color: #FFF }
 #wrapper ul.reports li.first-report{background-color: #FFF; padding:0;border-width:0}
-#wrapper ul.reports li.first-report a {border: 2px dashed #BBB;padding: 12px 15px; display: block;color: orange; font-size: 1.2em; text-decoration: none; font-weight: bold}
+#wrapper ul.reports li.first-report a {border: 2px dashed #BBB;padding: 12px 15px; display: block;color: orange; font-size: 1.2em; text-decoration: none}
 #wrapper ul.reports li.first-report a:hover{border-color: #888}
 #wrapper ul.reports li.red {border-left-color: red;}
 #wrapper ul.reports li.green {border-left-color: green;}
 #wrapper ul.reports li h2.title{color: #333; font-size: 1.5em; display: inline}
 #wrapper ul.reports li a.btn, .btn-mrg-left{margin-left:5px; padding: 4px 10px 8px}
+
 .log {font-size: 0.9em; font-family: "Courier New"; margin-top: 10px; background-color: #FFF}
 .log table {margin-bottom: 0}
 .log table td, .log table th {font-size:0.8em;font-family:"Courier New";padding:4px 10px !important}
 .log table th {font-weight: bold}
+
+.user {font-size: 1em; background-color: #EEE; padding: 15px; border: 1px solid #e5e5e5 }
+.user table {margin-bottom: 0; background-color: #FFF}
+.user table td, .user table th {font-size:0.9em;padding:5px 12px !important}
+.user table th {font-weight: bold}
+
 #wrapper ul.reports li .view-more {text-align: center; cursor:pointer; font-size:1.5em; margin-bottom: -15px}
 #wrapper ul.reports span.error {color: #C1445C;}
+#wrapper ul.reports li .data {font-size: 0.8em; color: #333; margin-top: 10px; padding: 5px 10px; background-color: #FF9}
 #wrapper div.bitm {width: calc(100vw/5); float: left;}
 #wrapper div.bitm > a.cnt.small, #wrapper div.bitm > a.add.small{height: 180px}
 #wrapper div.bitm > a.cnt {overflow:hidden; display: block; height: 260px; padding: 10px 20px; margin: 15px; text-align: center; text-decoration:none; color: #333;
