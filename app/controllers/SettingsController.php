@@ -177,7 +177,7 @@ class SettingsController extends ControllerBase
      * Manage permission for an defined report
      */
     public function permissionUserModalAction(){
-        $users = User::find(['conditions' => ['type' => 'operator']]);
+        $users = User::find(['conditions' => ['type' => 'operator', 'status' => 1]]);
         $report = Report::findById($this->request->get('id'));
         $this->view->report = $report;
         $this->view->users = $users;
@@ -192,7 +192,7 @@ class SettingsController extends ControllerBase
         //case of permission per report
         if( $this->request->get('report') ){
             $report = Report::findById($this->request->get('report'));
-            $users = User::find(['conditions' => ['type' => 'operator']]);
+            $users = User::find(['conditions' => ['type' => 'operator', 'status' => 1]]);
             $perm = $this->request->get('perm');
             foreach($users as $user){
                 if(isset($perm[$user->getId()]) && in_array('view', $perm[$user->getId()])){
@@ -215,7 +215,6 @@ class SettingsController extends ControllerBase
             }
             $user->save();
         }
-
 
         echo 1;
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);

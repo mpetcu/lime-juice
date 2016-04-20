@@ -13,7 +13,6 @@ class Report extends \Phalcon\Mvc\Collection
     public $logCount;
     public $status;
     public $format;
-    public $notif;
 
     public function getSource(){
         return "report";
@@ -26,25 +25,21 @@ class Report extends \Phalcon\Mvc\Collection
     /**
      * Return notif array
      */
-    public function getNotif($uid = null){
-        if($uid !== null){
-            if(isset($this->notif) && in_array($uid, $this->notif)){
-                return array_intersect($this->notif, [$uid]);
-            }
-            return [];
-        }
-        return isset($this->notif)?$this->notif:[];
+    public function getNotif(){
+        User::find(['conditions' => ['status' => 1, 'type' => 'operator', ]]);
     }
 
 
-    public function setNotif($uid){
-        $this->notif[] = $uid;
-        return $this->notif;
+    public function setNotif($user){
+        $user->setPermission(get_class($this), $this->getId(), 'email');
+        $user->save();
+        return $this;
     }
 
-    public function unsetNotif($uid){
-        $this->notif = array_diff($this->notif, $uid);
-        return $this->notif;
+    public function unsetNotif($user){
+        $user->unsetPermission(get_class($this), $this->getId(), 'email');
+        $user->save();
+        return $this;
     }
 
     public function beforeCreate(){
@@ -176,18 +171,13 @@ class Report extends \Phalcon\Mvc\Collection
      * @return bool|string
      */
     public function sendNotif(){
-        $notifUids = $this->getNotif();
-
-        if($notifUids) {
+        $notifUsers = $this->getNotif();
+        if($notifUsers) {
             $mail = \Phalcon\DI\FactoryDefault::getDefault()->get('mail');
             $url = \Phalcon\DI\FactoryDefault::getDefault()->get('url');
             $utility = \Phalcon\DI\FactoryDefault::getDefault()->get('utility');
-
-            //$users = User::find(['conditions' => ['_id' => ['$in' => $notifUids]]]);
-            $users = User::find();
-
-            if(count($users)) {
-                foreach ($users as $user) {
+            if(count($notifUsers)) {
+                foreach ($notifUsers as $user) {
                     $mail->addAddress($user->email);
                 }
                 $log = $this->getLatestLog(1);

@@ -49,13 +49,21 @@ class User extends \Phalcon\Mvc\Collection
     }
 
     public function setPermission($model, $id, $type){
-        $this->to[sha1($model.$id)] = ['model' => $model, 'id' => $id, 'type' => $type];
+        if(isset($this->to[sha1($model.$id)])){
+            array_push($this->to[sha1($model . $id)]['type'], $type);
+        }else {
+            $this->to[sha1($model . $id)] = ['model' => $model, 'id' => $id, 'type' => $type];
+        }
         return $this;
     }
 
-    public function unsetPermission($model, $id){
+    public function unsetPermission($model, $id, $type = null){
         if(isset($this->to[sha1($model.$id)]))
-            unset($this->to[sha1($model.$id)]);
+            if($type != null){
+                $this->to[sha1($model . $id)]['type'] = array_diff($this->to[sha1($model . $id)]['type'], (array) $type);
+            }else {
+                unset($this->to[sha1($model . $id)]);
+            }
         return $this;
     }
 
@@ -83,7 +91,7 @@ class User extends \Phalcon\Mvc\Collection
         if($model == 'Db'){
             $reports = $obj->getReports();
             foreach($reports as $itm){
-                if(isset($this->to[sha1(get_class($itm).$itm->getId())]) && in_array($type, $this->to[sha1(get_class($itm).$itm->getId())]['type']))
+                if(isset($this->to[sha1(get_class($itm).$itm->getId())]) && in_array($type, (array) $this->to[sha1(get_class($itm).$itm->getId())]['type']))
                     return true;
             }
             return false;
@@ -91,7 +99,7 @@ class User extends \Phalcon\Mvc\Collection
 
         $id = $obj->getId();
         if(isset($this->to[sha1($model.$id)])){
-            if(in_array($type, $this->to[sha1($model.$id)]['type']))
+            if(in_array($type, (array) $this->to[sha1($model.$id)]['type']))
                 return true;
         }
         return false;

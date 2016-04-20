@@ -24,7 +24,7 @@
                     {% endif %}
                     <div class="data">
                         {% if date('Y-m-d H:i:s') < itm.getJob().getNextRun() and itm.getJob().status %}<span class="glyphicon glyphicon-time"></span> Next run: {{ utility.formatDate(itm.getJob().getNextRun()) }}<br/>{% endif %}
-                        {% if userRole == 'operator' %}<span class="glyphicon glyphicon-envelope"></span> Email notification active.<br/>{% endif %}
+                        {% if userRole == 'operator' %}{% if authenticatedUser.hasPermission(itm, 'email') %}<span class="glyphicon glyphicon-envelope"></span> Email notification active.{% else %}<span class="red"><span class="glyphicon glyphicon-envelope"></span> Email notification disable.</span>{% endif %}<br/>{% endif %}
                         {% if userRole == 'master' and users is defined %}<span class="glyphicon glyphicon-user"></span>
                             {% set userExist = false %}
                             {% for user in users %}

@@ -3,13 +3,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-envelope"></span> Mail notification</h4>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-envelope"></span> Email notification</h4>
             </div>
             {{ form(url('report/msgModal', ['id': report.getId()]), "method":"post", "autocomplete" : "off") }}
                 <div class="modal-body">
                     <div class="notifBox">
                         <strong>Note: </strong>
-                        {% if report.getNotif(authenticatedUser.getId()) %}
+                        {% if authenticatedUser.hasPermission(report, 'email') %}
                             <span class="green">Email notification active.</span>
                         {% else %}
                             <span class="red">Email notification disable.</span>
@@ -18,7 +18,9 @@
                     <i>Report:</i> {{ report.name }}<br/>
                     <i>Database:</i> {{ report.getDb().name }}<br/>
                     <h3 class="text-center">
-                        {% if change is not defined %}
+                        {% if change is defined %}
+                            Email notification status changed!
+                        {% else %}
                             Do you want to recive an email notifications<br/> when a new report has been generated?
                         {% endif %}
                     </h3>

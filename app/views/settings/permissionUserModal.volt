@@ -13,8 +13,9 @@
                         <thead>
                         <tr>
                             <th>Users <i class="gray">({{ users|length }})</i></th>
-                            <th class="text-center" width="70px"><span class="glyphicon glyphicon-eye-open"></span> View</th>
-                            <th class="text-center" width="70px"><span class="glyphicon glyphicon-play"></span> Run</th>
+                            <th class="text-center" width="35px"><span class="glyphicon glyphicon-eye-open"></span><br/><small>View</small></th>
+                            <th class="text-center" width="35px"><span class="glyphicon glyphicon-play"></span><br/><small>Run</small></th>
+                            <th class="text-center" width="35px"><span class="glyphicon glyphicon-envelope"></span><br/><small>Email</small></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,6 +24,7 @@
                                 <td class="text-left">{{ user.getName() }}</td>
                                 <td class="text-center"><input type="checkbox" value="view" name="perm[{{ user.getId() }}][]" class="main" id="r-{{ user.getId() }}" {% if user.hasPermission(report, 'view') %}checked{% endif %} /></td>
                                 <td class="text-center"><input type="checkbox" value="run" name="perm[{{ user.getId() }}][]" class="main" id="wr-{{ user.getId() }}" {% if user.hasPermission(report, 'run') %}checked{% endif %} disabled /></td>
+                                <td class="text-center"><input type="checkbox" value="email" name="perm[{{ user.getId() }}][]" class="main" id="er-{{ user.getId() }}" {% if user.hasPermission(report, 'email') %}checked{% endif %} disabled /></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -42,7 +44,7 @@
         $(function() {
             $('#permissionsModal').modal('show');
             $("input[type='checkbox'][value='view']").each(function(){
-                $('#w' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
+                $('#w' + $(this).attr('id')+ ', #e' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
             });
             hideAlertSuccess();
 
@@ -65,7 +67,7 @@
                         $('#'+$(this).attr('class')).prop('checked', false);
                 }
                 $("input[type='checkbox'][value='view']").each(function(){
-                    $('#w' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
+                    $('#w' + $(this).attr('id')+ ', #e' + $(this).attr('id')).prop('disabled', !$(this).prop('checked'));
                 });
             });
 

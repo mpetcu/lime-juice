@@ -142,10 +142,10 @@ class ReportController extends ControllerBase
             $notif = $this->request->getPost('notif');
             $user = $this->getUserSession();
             if($notif == 'yes'){
-                $report->setNotif($user->getId());
+                $report->setNotif($user);
             }
             if($notif == 'no'){
-                $report->unsetNotif($user->getId());
+                $report->unsetNotif($user);
             }
             $this->view->change = true;
             $report->save();
