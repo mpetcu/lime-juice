@@ -6,7 +6,7 @@
                 <th>Name/Email</th>
                 <th width="200px">Last access</th>
                 <th width="85px">Type</th>
-                <th width="280x">Actions</th>
+                <th width="260x">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -30,11 +30,11 @@
                     </td>
                     <td>
                         <a href="{{ url('settings/changeUserStatus', ['id':user.getId()]) }}" class="btn btn-xs btn-{% if user.status%}success{% else %}danger{% endif %} change-status">
-                            {% if user.status%}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
+                        {% if user.status %}<span class="glyphicon glyphicon-ok"></span> Active</a>{% else %}<span class="glyphicon glyphicon-remove"></span> Disabled</a>{% endif %}
                         {% if user.type != 'master' %}
-                            <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default runModal"><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
+                            <a href="{{ url('settings/permissionModal', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-perm runModal" {% if !user.status %}style="display:none"{% endif %}><span class="glyphicon glyphicon-remove-sign"></span> Permissions</a>
                         {% endif %}
-                        <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass"><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
+                        <a href="{{ url('settings/changeUserPass', ['id':user.getId()]) }}" class="btn btn-xs btn-default change-pass" {% if !user.status %}style="display:none"{% endif %}><span class="glyphicon glyphicon-refresh"></span> Reset pass</a><br/>
                     </td>
                 </tr>
             {% endfor %}
@@ -69,8 +69,10 @@
             $.get($(this).attr('href'), function(data){
                 if(data == 0){
                     a.removeClass('btn-success').addClass('btn-danger').html('<span class="glyphicon glyphicon-remove"></span> Disabled');
+                    a.parent().find('.change-pass, .change-perm').hide();
                 }else if(data == 1){
                     a.removeClass('btn-danger').addClass('btn-success').html('<span class="glyphicon glyphicon-ok"></span> Active');
+                    a.parent().find('.change-pass, .change-perm').show();
                 }
             });
             return false;
