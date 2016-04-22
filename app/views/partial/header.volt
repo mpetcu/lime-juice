@@ -21,7 +21,7 @@
                 {% endif %}
                 <li><a href="{{ url('report/index') }}"><span class="glyphicon glyphicon-play"></span> Reports</a></li>
                 {% if userRole == 'master' %}
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Settings <span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('settings/index') }}"><span class="glyphicon glyphicon-user"></span> Users & permissions</a></li>
                             <li><a href="{{ url('settings/update') }}"><span class="glyphicon glyphicon-flag"></span> Updates</a></li>
@@ -29,7 +29,7 @@
                     </li>
                 {% endif %}
                 {% if showLogOut %}
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> </span> My account <span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> </span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('user/edit') }}"><span class="glyphicon glyphicon-user"></span> Edit profile</a></li>
                             <li><a href="{{ url('user/pass') }}"><span class="glyphicon glyphicon-lock"></span> Change password</a></li>

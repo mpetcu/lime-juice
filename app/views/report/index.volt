@@ -1,8 +1,10 @@
 <div class="reportsRefresh">
-    <h1 class="head"><span class="glyphicon glyphicon-tag"></span> {{ dbm.name }}
+    <h1 class="head">
+        <a href="{{ url('report/default') }}" title="Go back!" class="go-back">Back</a>
+        <span class="glyphicon glyphicon-tag"></span> {{ dbm.name }}
         {% if userRole == 'master' %}
-            <a href="{{ url('db/delete', ['id': dbm.getId()]) }}" title="Delete" class="btn btn-default pull-right btn-danger runModal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-            <a href="{{ url('db/edit', ['id': dbm.getId()]) }}" title="Edit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            <a href="{{ url('db/delete', ['id': dbm.getId()]) }}" title="Delete database connection" class="btn btn-default pull-right btn-danger runModal"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="{{ url('db/edit', ['id': dbm.getId()]) }}" title="Edit database connection" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
             <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-warning pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> New report</a>
         {% endif %}
     </h1>
