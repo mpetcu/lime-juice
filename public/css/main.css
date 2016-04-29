@@ -1,13 +1,10 @@
-/*bootstrap hack to show icons*/
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
-
 /* General */
 #wrapper {min-width: 550px}
 #wrapper a{cursor: pointer}
 #wrapper div.spacer {height: 30px}
 #wrapper h1.head {border-bottom: 3px solid orange; margin: 0 0 20px 0; padding: 0 0 5px 0; }
 #wrapper h1.head a.btn {margin-left: 5px; font-size: 0.45em; height: 29px}
-#wrapper h1.head .go-back { background: url('../img/arrow2.png') no-repeat left center orange; border-right: 5px solid #fff; color: #fff; padding: 10px 15px 10px 35px; text-decoration: none; font-size: 0.7em}
+#wrapper h1.head .go-back { background: url('../img/arrow4.png') no-repeat left center orange; border-right: 5px solid #fff; color: #fff; padding: 9px 10px 9px 15px; text-decoration: none; font-size: 0.7em; margin-left: -10px}
 #wrapper .info {font-style: italic; color: #777; font-size: 0.9em}
 #wrapper div.notifBox {padding: 5px 10px; background-color: #ffa; color: #333; font-size: 1.2em}
 #wrapper div.sqlError {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: red; background-color: #FFA}
@@ -21,8 +18,8 @@
 .lightgray{color:#AAA}
 .black{color:black}
 .orange{color:orange}
-.h1, h1{font-size: 26px;text-decoration:none !important; color:#333}
-.h2, h2{font-size: 24px;text-decoration:none !important; color:#333}
+.h1, h1{font-size: 24px;text-decoration:none !important; color:#333}
+.h2, h2{font-size: 22px;text-decoration:none !important; color:#333}
 .h3, h3{font-size: 18px;text-decoration:none !important; color:#333}
 
 /* Form */
@@ -33,7 +30,7 @@ form input:not(.btn):focus, form select:focus, form textarea:focus{ border-color
 form textarea{min-height: 150px; width: 65vw; font-family: "Courier New"; }
 form ul li label:not(.default){width: 110px; display: inline-block; text-align: right; font-weight: normal; margin-right: 15px; padding-top: 7px; float: left}
 form ul li label.default{font-weight: normal}
-form ul li label.icon{font-size: 1.6em; top: -3px; line-height: 40px}
+form ul li label.icon{font-size: 1.5em; top: -3px; line-height: 40px}
 form ul li div.msg{display:inline; font-size: 0.9em }
 form ul li{padding: 7px 0;}
 form ul li input[type="radio"], form ul li input[type="checkbox"]{ margin-left: 124px }
