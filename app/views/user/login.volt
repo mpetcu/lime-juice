@@ -1,4 +1,4 @@
-<h1 class="head"><span class="glyphicon glyphicon-cog"></span> Restricted area</h1>
+<h1 class="head"><span class="glyphicon glyphicon-user"></span> Restricted area</h1>
 <form method="post">
     <ul>
         <li><label></label></li>
@@ -18,7 +18,7 @@
         <li>
             <br/>
             <label></label>
-            <input type='submit' class="btn btn-success" value="Login" />
+            <button class="btn btn-success"><span class="glyphicon glyphicon-user"></span> Sign in</button>
         </li>
 
     </ul>
