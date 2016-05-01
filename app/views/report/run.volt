@@ -21,7 +21,7 @@
 </div>
 <div class="modal-footer">
     {% if lastRun and report.getLatestLog() and report.getLatestLog().errors == false %}
-        <a href="{{ utility.getFile(report.getLatestLog().fileLocation) }}" class="btn btn-warning pull-right" title="Get report"><span class="glyphicon glyphicon-save"></span> Download file</a>
+        <a href="{{ utility.getFile(report.getLatestLog().fileLocation) }}" class="btn btn-success pull-right" title="Get report"><span class="glyphicon glyphicon-save"></span> Download file</a>
     {% else %}
         <a href="{{ url('report/run', ['id': report.getId()]) }}" title="Run now" class="btn btn-success pull-right" id="startRunningReport"><span class="glyphicon glyphicon glyphicon-play"></span> Start now</a>
     {% endif %}

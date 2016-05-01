@@ -5,7 +5,7 @@
         {% if userRole == 'master' %}
             <a href="{{ url('db/delete', ['id': dbm.getId()]) }}" title="Delete database connection" class="btn btn-default pull-right btn-danger runModal"><span class="glyphicon glyphicon-trash"></span></a>
             <a href="{{ url('db/edit', ['id': dbm.getId()]) }}" title="Edit database connection" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-warning pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> New report</a>
+            <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-success pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> New report</a>
         {% endif %}
     </h1>
     <ul class="reports">
@@ -93,12 +93,11 @@
             {% endif %}
         {% endfor %}
         {% if dbm.getReports()|length < 1 %}
-            <li class="first-report"><a href="{{ url('report/new', ['db': dbm.getId()]) }}" title="Create report"><span class="glyphicon glyphicon-plus" style="color: orange"></span> No reports added! Click here to add first report.</a></li>
+            <li class="first-report"><a href="{{ url('report/new', ['db': dbm.getId()]) }}" title="Create report"><span class="glyphicon glyphicon-plus"></span> No reports added! Click here to add first report.</a></li>
         {% endif %}
     </ul>
     <script>
         $(function(){
-            //launch modal
             $('.runModal').click(function(e){
                 $.get($(this).attr('href'), function(data){
                     $('#loadModal').empty().html(data);

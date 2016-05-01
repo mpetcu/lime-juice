@@ -18,7 +18,7 @@
         <li>
             <br/>
             <label></label>
-            <input type='submit' class="btn btn-primary" value="Login" />
+            <input type='submit' class="btn btn-success" value="Login" />
         </li>
 
     </ul>

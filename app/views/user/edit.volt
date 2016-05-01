@@ -5,6 +5,6 @@
     {{ form.renderDecorated('firstName') }}
     {{ form.renderDecorated('lastName') }}
     {{ form.renderDecorated('email') }}
-    <li class="button"><input type="submit" class="btn btn-primary" value="Save"/></li>
+    <li class="button"><input type="submit" class="btn btn-success" value="Save your profile"/></li>
 </ul>
 </form>

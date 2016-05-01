@@ -16,6 +16,7 @@ class ReportController extends ControllerBase
             $this->view->dbsl = $this->view->dbs;
             $this->view->dbs = false;
         }else{
+            $this->view->pick('defaultOperator');
             //TODO My latest notifications
         }
     }

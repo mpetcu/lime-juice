@@ -5,7 +5,7 @@
     {{ form.renderDecorated('name') }}
     {{ form.renderDecorated('format') }}
     {{ form.renderDecorated('qry') }}
-    <li class="button"><input type="submit" class="btn btn-primary" value="Save"/><input type="button" location="{{ url('report/new', ['db': report.did]) }}" class="save-as btn btn-default" value="Save as new"/></li>
+    <li class="button"><input type="submit" class="btn btn-success" value="Save report"/><input type="button" location="{{ url('report/new', ['db': report.did]) }}" class="save-as btn btn-default" value="Save as new report"/></li>
 </ul>
 </form>
 <script>

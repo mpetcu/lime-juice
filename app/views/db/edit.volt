@@ -9,7 +9,7 @@
     {{ form.renderDecorated('username') }}
     {{ form.renderDecorated('password') }}
     {{ form.renderDecorated('dbname') }}
-    <li class="button"><input type="submit" class="btn btn-primary" value="Save"/> <input type="button" location="{{ url('db/new') }}" class="save-as btn btn-default" value="Save as new"/></li>
+    <li class="button"><input type="submit" class="btn btn-success" value="Save connection"/> <input type="button" location="{{ url('db/new') }}" class="save-as btn btn-default" value="Save as new connection"/></li>
 </ul>
 </form>
 <script>

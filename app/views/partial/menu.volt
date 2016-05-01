@@ -10,6 +10,6 @@
         {% endfor %}
     </ul>
     {% if userRole == 'master' %}
-        <a href="{{ url('db/new')}}" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span> New connection</a>
+        <a href="{{ url('db/new')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> New connection</a>
     {% endif %}
 </div>

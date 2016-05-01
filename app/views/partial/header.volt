@@ -1,8 +1,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid ">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <span style="color:orange;font-size:28px"><strong>R</strong>eport manager <span style="color: #9d9d9d; display: inline-block;font-size: 9px; left: -35px;position: relative;top: 11px;font-style: italic"><?php echo VERSION ?></span></span>
+            <a class="navbar-brand" href="{{ url() }}">
+                <img src="{{ url() }}img/logo.png" alt="Lemon Juice - Reports and data exports tool" />
+                <span>Lemon Juice<span><?php echo VERSION ?></span></span>
             </a>
             {% if showMenu %}
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,11 +18,11 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right ">
                 {% if showLogOut %}
-                    <li><p class="navbar-text" style="color: orange"> &nbsp;&nbsp;&nbsp; {{ sessionUserName }}</p></li>
+                    <li><p class="navbar-text lmj"> &nbsp;&nbsp;&nbsp; {{ sessionUserName }}</p></li>
                 {% endif %}
                 <li><a href="{{ url('report/index') }}"><span class="glyphicon glyphicon-play"></span> Reports</a></li>
                 {% if userRole == 'master' %}
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Settings"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('settings/index') }}"><span class="glyphicon glyphicon-user"></span> Users & permissions</a></li>
                             <li><a href="{{ url('settings/update') }}"><span class="glyphicon glyphicon-flag"></span> Updates</a></li>
@@ -29,7 +30,7 @@
                     </li>
                 {% endif %}
                 {% if showLogOut %}
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> </span> <span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="My profile"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('user/edit') }}"><span class="glyphicon glyphicon-user"></span> Edit profile</a></li>
                             <li><a href="{{ url('user/pass') }}"><span class="glyphicon glyphicon-lock"></span> Change password</a></li>

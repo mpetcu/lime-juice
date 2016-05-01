@@ -27,7 +27,7 @@
                 </div>
                 <div class="modal-footer">
                     {% if change is defined %}
-                        <a data-dismiss="modal" class="btn btn-warning pull-right" >Close window</a>
+                        <a data-dismiss="modal" class="btn btn-success pull-right" >Close window</a>
                     {% else %}
                         <input type="button" data-value="yes" value="Yes, I do" class="btn btn-success pull-right" />
                         <input type="button" data-value="no" value="No, I don't" class="btn btn-danger pull-right btn-mrg-right" />

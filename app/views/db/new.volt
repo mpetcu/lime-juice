@@ -9,6 +9,6 @@
     {{ form.renderDecorated('username') }}
     {{ form.renderDecorated('password') }}
     {{ form.renderDecorated('dbname') }}
-    <li class="button"><input type="submit" class="btn btn-primary" value="Create"/></li>
+    <li class="button"><input type="submit" class="btn btn-success" value="Create connection"/></li>
 </ul>
 </form>

@@ -5,6 +5,6 @@
     {{ form.renderDecorated('oldPass') }}
     {{ form.renderDecorated('pass') }}
     {{ form.renderDecorated('pass2') }}
-    <li class="button"><input type="submit" class="btn btn-primary" value="Save"/></li>
+    <li class="button"><input type="submit" class="btn btn-success" value="Save new pass"/></li>
 </ul>
 </form>

@@ -2,15 +2,19 @@
 #wrapper {min-width: 550px}
 #wrapper a{cursor: pointer}
 #wrapper div.spacer {height: 30px}
-#wrapper h1.head {border-bottom: 3px solid orange; margin: 0 0 20px 0; padding: 0 0 5px 0; }
+#wrapper h1.head {border-bottom: 3px solid #96DC05; margin: 0 0 20px 0; padding: 0 0 5px 0; }
 #wrapper h1.head a.btn {margin-left: 5px; font-size: 0.45em; height: 29px}
-#wrapper h1.head .go-back { background: url('../img/arrow4.png') no-repeat left center orange; border-right: 5px solid #fff; color: #fff; padding: 9px 10px 9px 15px; text-decoration: none; font-size: 0.7em; margin-left: -10px}
+#wrapper h1.head .go-back { background: url('../img/arrow.png') no-repeat left center #222; border-right: 5px solid #fff; color: #96DC05; padding: 9px 10px 9px 15px; text-decoration: none; font-size: 0.7em; margin-left: -10px}
+#wrapper h1.head .go-back:hover {transform: scale(1.05);}
 #wrapper .info {font-style: italic; color: #777; font-size: 0.9em}
 #wrapper div.notifBox {padding: 5px 10px; background-color: #ffa; color: #333; font-size: 1.2em}
 #wrapper div.sqlError {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: red; background-color: #FFA}
 #wrapper .console {padding: 10px; margin: 10px 0; font-family: "Courier New"; color: #444; background-color: #EEE}
 #wrapper .btn:hover{transform: scale(1.05)}
 #wrapper .btn:active{transform: scale(0.95)}
+.navbar-brand img { display: inline-block; width: 33px; margin-top: -10px }
+.navbar-brand > span { color: #96DC05; font-size: 26px }
+.navbar-brand > span > span { color: #9d9d9d; display: inline-block;font-size: 9px; left: -35px;position: relative;top: 11px;font-style: italic }
 .fix{clear:both}
 .green{color:green}
 .red{color:red}
@@ -18,6 +22,7 @@
 .lightgray{color:#AAA}
 .black{color:black}
 .orange{color:orange}
+.lmj {color: #72EF03 !important;}
 .h1, h1{font-size: 24px;text-decoration:none !important; color:#333}
 .h2, h2{font-size: 22px;text-decoration:none !important; color:#333}
 .h3, h3{font-size: 18px;text-decoration:none !important; color:#333}
@@ -34,16 +39,16 @@ form ul li label.icon{font-size: 1.5em; top: -3px; line-height: 40px}
 form ul li div.msg{display:inline; font-size: 0.9em }
 form ul li{padding: 7px 0;}
 form ul li input[type="radio"], form ul li input[type="checkbox"]{ margin-left: 124px }
-form ul li.button{padding-top: 10px; margin-top: 10px; padding-left: 120px;  border-top: 1px solid #558ABB}
+form ul li.button{padding-top: 10px; margin-top: 10px; padding-left: 125px}
 form ul li.button .btn, .btn-mrg-right {margin-right: 5px;}
 form ul li.error label, form ul li.error input, form ul li.error select, form ul li.error textarea{color: #C1445C; border-color: #C1445C}
 
 /* db/show page */
 #wrapper ul.reports {list-style: none inside; margin: 0; padding: 0}
-#wrapper ul.reports li{padding: 15px;  display: block; margin-top: 15px; border: 1px solid #E5E5E5; border-left: 5px solid orange; background-color: #EEE}
+#wrapper ul.reports li{padding: 15px;  display: block; margin-top: 15px; border: 1px solid #E5E5E5; border-left: 5px solid #96DC05; background-color: #EEE}
 #wrapper ul.reports li:hover {transform: scale(1.007); box-shadow: 0 0 20px rgba(0,0,0,0.15); transition: 0.2s ease; background-color: #FFF }
 #wrapper ul.reports li.first-report{background-color: #FFF; padding:0;border-width:0}
-#wrapper ul.reports li.first-report a {border: 2px dashed #BBB;padding: 12px 15px; display: block;color: orange; font-size: 1.2em; text-decoration: none}
+#wrapper ul.reports li.first-report a {border: 2px dashed #BBB;padding: 12px 15px; display: block;color: #333; font-size: 1.2em; text-decoration: none}
 #wrapper ul.reports li.first-report a:hover{border-color: #888}
 #wrapper ul.reports li.red {border-left-color: red;}
 #wrapper ul.reports li.green {border-left-color: green;}
@@ -62,7 +67,7 @@ form ul li.error label, form ul li.error input, form ul li.error select, form ul
 
 #wrapper ul.reports li .view-more {text-align: center; cursor:pointer; font-size:1.5em; margin-bottom: -15px}
 #wrapper ul.reports span.error {color: #C1445C;}
-#wrapper ul.reports li .data {font-size: 0.8em; color: #333; margin-top: 10px; padding: 5px 10px; background-color: #FF9}
+#wrapper ul.reports li .data {font-size: 0.8em; color: #555; margin-top: 10px; padding: 5px 10px; background-color: #ddd}
 #wrapper div.bitm {width: calc(100vw/5); float: left;}
 #wrapper div.bitm > a.cnt.small, #wrapper div.bitm > a.add.small{height: 180px}
 #wrapper div.bitm > a.cnt {overflow:hidden; display: block; height: 260px; padding: 10px 20px; margin: 15px; text-align: center; text-decoration:none; color: #333;

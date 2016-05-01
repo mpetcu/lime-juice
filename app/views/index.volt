@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
-		<meta name="viewport" content="width=550, user-scalable=no"/>
+		<meta name="viewport" content="width=640, user-scalable=no"/>
 		<meta charset="UTF-8"/>
 		<title>Report</title>
 
