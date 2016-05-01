@@ -2,8 +2,8 @@
     <div class="container-fluid ">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ url() }}">
-                <img src="{{ url() }}img/logo.png" alt="Lemon Juice - Reports and data exports tool" />
-                <span>Lemon Juice<span><?php echo VERSION ?></span></span>
+                <img src="{{ url() }}img/logo.png" alt="Lime Juice - Reports and data exports tool" />
+                <span>Lime Juice<span><?php echo VERSION ?></span></span>
             </a>
             {% if showMenu %}
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

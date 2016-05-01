@@ -3,7 +3,7 @@
 		<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
 		<meta name="viewport" content="width=640, user-scalable=no"/>
 		<meta charset="UTF-8"/>
-		<title>Report</title>
+		<title>Lime Juice</title>
 
 		<!-- jQuery -->
 		<script src="/js/jquery.min.js"></script>
