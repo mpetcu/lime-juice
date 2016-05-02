@@ -5,14 +5,14 @@
         {% if userRole == 'master' %}
             <a href="{{ url('db/delete', ['id': dbm.getId()]) }}" title="Delete database connection" class="btn btn-default pull-right btn-danger runModal"><span class="glyphicon glyphicon-trash"></span></a>
             <a href="{{ url('db/edit', ['id': dbm.getId()]) }}" title="Edit database connection" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-success pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> New report</a>
+            <a href="{{ url('report/new', ['db': dbm.getId()]) }}" class="btn btn-success pull-right" title="Create new report"><span class="glyphicon glyphicon-plus"></span> <span class="lng">New report</span></a>
         {% endif %}
     </h1>
     <ul class="reports">
         {% for itm in dbm.getReports() %}
             {% if authenticatedUser.hasPermission(itm, 'view') %}
                 <li {% if itm.logs is defined %}class="{% if itm.getLatestLog().errors %}red{%else%}green{%endif%}"{% endif %}>
-                    <h2 class="title">{{ itm.name }} <i class="gray">({{ itm.getLogCount() }} logs)</i></h2>
+                    <h2 class="title">{{ itm.name }} <i class="gray lng">({{ itm.getLogCount() }} logs)</i></h2>
                     {% if userRole == 'master' %}
                         <a href="{{ url('report/delete', ['id': itm.getId()]) }}" title="Delete" class="btn btn-sm btn-danger pull-right runModal"><span class="glyphicon glyphicon-trash"></span></a>
                         <a href="{{ url('report/edit', ['id': itm.getId()]) }}" title="Edit" class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -43,19 +43,19 @@
                             <table width="100%" class="table table-striped table-condensed">
                                 <thead>
                                 <tr>
-                                    <th width="30px">#</th>
-                                    <th class="text-center" width="40px">Type</th>
+                                    <th width="30px" class="lng">#</th>
+                                    <th class="text-center lng" width="40px">Type</th>
                                     <th>Last run</th>
-                                    <th>Time</th>
-                                    <th class="text-center">Rows</th>
+                                    <th class="lng">Time</th>
+                                    <th class="text-center lng">Rows</th>
                                     <th class="text-right" width="170px">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for index, log in itm.getLatestLog(3) %}
                                     <tr>
-                                        <td><b>{{ itm.getLogCount() - index }}</b></td>
-                                        <td class="text-center">
+                                        <td class="lng"><b>{{ itm.getLogCount() - index }}</b></td>
+                                        <td class="text-center lng">
                                             {% if log.runType == 'user' %}
                                                 <span class="glyphicon glyphicon-user" title="Executed by user"></span>
                                             {% else %}
@@ -63,9 +63,9 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ utility.formatDate(log.startTime) }}</td>
-                                        <td>{{ log.totalTime }} sec</td>
+                                        <td class="lng">{{ log.totalTime }} sec</td>
                                         {% if log.errors %}
-                                            <td class="text-center"> - </td>
+                                            <td class="text-center lng"> - </td>
                                             <td class="lightgray text-right">
                                                 <span class="red" title="{{ log.errors }}"><span class="glyphicon glyphicon-warning-sign" ></span> Error!</span>
                                                 {% if userRole == 'master' %}
@@ -73,7 +73,7 @@
                                                 {% endif %}
                                             </td>
                                         {% else %}
-                                            <td align="center">{{ log.rows }}</td>
+                                            <td align="center" class="lng">{{ log.rows }}</td>
                                             <td class="lightgray text-right">
                                                 <a class="orange" href="{{ utility.getFile(log.fileLocation) }}"><span class="glyphicon glyphicon-save"></span> {{ utility.formatBytes(log.fileSize) }}</a>
                                                 | <a class="runModal" href="{{ url('report/viewModal', ['id': log.getId()]) }}" title="Preview"><span class="glyphicon glyphicon-eye-open"></span></a>
