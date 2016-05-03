@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4587cb8a-84cd-4502-960b-155e8734f749" name="hp-microserv" url="http://petcu-microserv.go.ro">
+        <fileTransfer host="petcu-microserv.go.ro" port="2222" rootFolder="/var/www/html" accessType="SFTP" password="dfc7dfdadfcfdfdedfc9dfdf" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="2222" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

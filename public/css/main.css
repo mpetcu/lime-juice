@@ -3,7 +3,7 @@
 #wrapper a{cursor: pointer}
 #wrapper div.spacer {height: 30px}
 #wrapper h1.head {border-bottom: 3px solid #96DC05; margin: 0 0 20px 0; padding: 0 0 5px 0; }
-#wrapper h1.head a.btn {margin-left: 5px; font-size: 0.45em; height: 29px}
+#wrapper h1.head a.btn {margin-left: 5px; font-size: 0.55em; height: 29px}
 #wrapper h1.head .go-back { background: url('../img/arrow.png') no-repeat left center #222; border-right: 5px solid #fff; color: #96DC05; padding: 9px 10px 9px 15px; text-decoration: none; font-size: 0.6em; margin-left: -10px}
 #wrapper h1.head .go-back:hover {transform: scale(1.05);}
 #wrapper .info {font-style: italic; color: #777; font-size: 0.9em}
