@@ -1,4 +1,4 @@
-#Report manager
+#Lime Juice
 
 A small project based on Phalcon Framework where you can run SQL queries and exports output in CSV.
 You can manage many **database connections**, each one will hold **many queries**.
