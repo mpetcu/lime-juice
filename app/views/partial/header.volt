@@ -20,7 +20,7 @@
                 {% if showLogOut %}
                     <li><p class="navbar-text lmj"> &nbsp;&nbsp;&nbsp; {{ sessionUserName }}</p></li>
                 {% endif %}
-                <li><a href="{{ url('report/index') }}"><span class="glyphicon glyphicon-play"></span> Reports</a></li>
+                <li><a href="{{ url('report/index') }}"><span class="glyphicon glyphicon-play"></span> {% if userRole == 'master' %}Reports{% else %}My reports{%endif%}</a></li>
                 {% if userRole == 'master' %}
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Settings"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">

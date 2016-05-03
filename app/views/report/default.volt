@@ -1,5 +1,5 @@
-<h1 class="head"><span class="glyphicon glyphicon-play"></span> &nbsp; Reports ({{ dbsl|length }})</h1>
-<h2></h2>
+<h1 class="head"><span class="glyphicon glyphicon-play"></span> Reports</h1>
+<h2>Databases ({{ dbsl|length }})</h2>
 <p><i>Pick a database connection from the list below or create a new connection!</i></p>
 {% for itm in dbsl %}
     <div class="bitm">
