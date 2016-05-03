@@ -5,12 +5,18 @@
  */
 class ReportController extends ControllerBase
 {
+    /**
+     * Extend ControllerBase initialize()
+     */
     public function initialize(){
         parent::initialize();
         $this->view->dbs = Db::find(); //list all dbs in the left column
         $this->view->currentDbId = $this->request->get('id');
     }
 
+    /**
+     * Default action. Handle both user roles Operator and Master.
+     */
     public function defaultAction(){
         if($this->view->userRole == 'master'){
             $this->view->dbsl = $this->view->dbs;
@@ -37,8 +43,17 @@ class ReportController extends ControllerBase
             if(!$this->request->get('id')){
                 return $this->response->redirect('report/index?id='.$db->getId());
             }
-            $this->view->dbm = $db;
-            $this->view->currentDbId = $db->getId();
+            if(!$this->getUserSession()->hasPermission($db, 'view')){
+                return $this->dispatcher->forward(
+                    array(
+                        'controller' => 'index',
+                        'action'     => 'error404',
+                    )
+                );
+            }else {
+                $this->view->dbm = $db;
+                $this->view->currentDbId = $db->getId();
+            }
         }else{
             return $this->response->redirect('report/default');
         }
@@ -51,7 +66,6 @@ class ReportController extends ControllerBase
 
     /**
      * Add a report
-     * @return mixed
      */
     public function newAction(){
         $db = Db::findById($this->request->get('db'));
@@ -65,7 +79,6 @@ class ReportController extends ControllerBase
 
     /**
      * Edit a report
-     * @return mixed
      */
     public function editAction(){
         $report = Report::findById($this->request->get('id'));
@@ -79,7 +92,6 @@ class ReportController extends ControllerBase
 
     /**
      * Remove a report
-     * @return mixed
      */
     public function deleteAction(){
         $report = Report::findById($this->request->get('id'));
@@ -95,7 +107,6 @@ class ReportController extends ControllerBase
 
     /**
      * Remove a report
-     * @return mixed
      */
     public function deleteLogAction(){
         $log = Log::findById($this->request->get('id'));
@@ -118,8 +129,7 @@ class ReportController extends ControllerBase
         $report->generateFile('user')->save();
         $report->save();
 
-        //send mail
-        $report->sendNotif();
+        $report->sendNotif(); //send mail notification
 
         $this->view->lastRun = true;
         $this->view->report = $report;
@@ -137,7 +147,6 @@ class ReportController extends ControllerBase
 
     /**
      * Add/Delete emails modal for sending report notifications
-     * @return mixed
      */
     public function msgModalAction(){
         $report = Report::findById($this->request->get('id'));
@@ -159,7 +168,6 @@ class ReportController extends ControllerBase
 
     /**
      * Add/Edit/Disable cron job modal to a database report
-     * @return mixed
      */
     public function jobModalAction(){
         $report = Report::findById($this->request->get('id'));
