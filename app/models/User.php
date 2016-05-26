@@ -76,6 +76,16 @@ class User extends \Phalcon\Mvc\Collection
         return [];
     }
 
+    public function getModelIdsByPermissionType($model, $type){
+        $return = [];
+        foreach($this->to as $key => $val){
+            if($val['model'] === $model AND in_array($type, $val['type'])){
+                $return[] = $val['id'];
+            }
+        }
+        return $return;
+    }
+
     public function removePermissions(){
         $this->to = [];
         return $this;

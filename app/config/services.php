@@ -9,7 +9,8 @@ use Phalcon\DI\FactoryDefault,
     Phalcon\Session\Adapter\Files as SessionAdapter,
     Phalcon\Http\Response\Cookies,
     Phalcon\Events\Manager as EventsManager,
-    Utility\Utility;
+    Utility\Utility,
+    Utility\HTMLMinify;
 
 
 /**
@@ -40,7 +41,7 @@ $di->set('router', function () {
 /**
  * Setting up the view component
  */
-$di->set('view', function () use ($config) {
+$di->set('view', function () use ($config, $di) {
     $view = new View();
     $view->setViewsDir($config->application->viewsDir);
     $view->registerEngines([

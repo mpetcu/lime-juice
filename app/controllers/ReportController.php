@@ -25,7 +25,7 @@ class ReportController extends ControllerBase
             $this->view->pick('report/defaultOperator');
             $this->view->dbsl = $this->view->dbs;
             $this->view->dbs = false;
-            //TODO My latest notifications
+            $this->view->logs = Log::find(['conditions' => ['rid' => ['$in' => $this->getUserSession()->getModelIdsByPermissionType(get_class(new Report()), 'view')]], 'limit' => 10, 'sort' => ['startTime' => -1],  ]);
         }
     }
 
